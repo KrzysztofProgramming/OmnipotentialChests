@@ -20,11 +20,11 @@ public class YmlGenerator {
         return new File(folder, filename + ".yml");
     }
 
-    public void generateYml(String configName,String dataPath, String data) {
+    public boolean generateYml(String configName, String dataPath, String data) {
         File file = initConfig(configName);
         YamlConfiguration yml = makeFileIfNotExist(file);
         yml.addDefault(dataPath, data);
-        saveConfig(file, yml);
+        return saveConfig(file, yml);
     }
 
     private YamlConfiguration makeFileIfNotExist(File file) {
@@ -56,8 +56,8 @@ public class YmlGenerator {
         return true;
     }
 
-    private void saveConfig(File file, YamlConfiguration yml) {
-        save(file, yml);
+    private boolean saveConfig(File file, YamlConfiguration yml) {
+        return save(file, yml);
     }
 
     private boolean save(File file, YamlConfiguration yml) {

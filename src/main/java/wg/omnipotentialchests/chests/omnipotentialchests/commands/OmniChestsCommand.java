@@ -30,25 +30,23 @@ public class OmniChestsCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         ItemStack item = player.getInventory().getItemInMainHand();
-        try {
-        File file = new File(OmnipotentialChests.getInstance().getDataFolder().getCanonicalPath()
-                + File.separator + "elo.bin");
-            if (!(file.getParentFile().mkdir()
-                    && file.createNewFile())) {
-                player.sendMessage("Can't create a file");
-            }
-//          FileOutputStream stream = new FileOutputStream(file);
-//          stream.write(item.serialize().toString().getBytes());
-//          FileInputStream inputStream = new FileInputStream(file);
-//          ItemStack getItem =ItemStack.deserialize((Map<String, Object>) inputStream.read());
-            OmnipotentialChests.getInstance().getConfig().set("item.elo", item);
-            OmnipotentialChests.getInstance().getConfig().save(file);
-            ItemStack getItem = (ItemStack) OmnipotentialChests.getInstance().getConfig().get("item.elo");
-            player.getInventory().addItem(getItem);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
+//        OmnipotentialChests.getInstance().getConfigsManager().ymlGenerator
+//                .generateYml("testowy", "", "");
+//        try {
+//        File file = new File(OmnipotentialChests.getInstance().getDataFolder().getCanonicalPath()
+//                + File.separator + "elo.bin");
+//            if (!(file.getParentFile().mkdir()
+//                    && file.createNewFile())) {
+//                player.sendMessage("Can't create a file");
+//            }
+//            OmnipotentialChests.getInstance().getConfig().set("item.elo", item);
+//            OmnipotentialChests.getInstance().getConfig().save(file);
+//            ItemStack getItem = (ItemStack) OmnipotentialChests.getInstance().getConfig().get("item.elo");
+//            player.getInventory().addItem(getItem);
+//        }
+//        catch(IOException e){
+//            e.printStackTrace();
+//        }
         player.sendMessage("git");
         return true;
     }
