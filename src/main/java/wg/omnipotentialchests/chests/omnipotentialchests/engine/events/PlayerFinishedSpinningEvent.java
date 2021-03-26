@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.guis.ChestGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.base.ChestGui;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureItem;
 
 public class PlayerFinishedSpinningEvent extends PlayerSpinningEvent{

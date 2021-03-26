@@ -1,22 +1,15 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.guis.ChestGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerStartSpinningEvent;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.base.ChestGui;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
-
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Map;
 
 public class OmniChestsCommand implements CommandExecutor {
 
@@ -32,9 +25,8 @@ public class OmniChestsCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         Bukkit.broadcastMessage(String.valueOf(OmnipotentialChests.getInstance().getDataFolder().mkdir()));
-        ChestGui chestGui = new ChestGui(TreasureChest.getExample());
-        chestGui.open(player);
-        chestGui.startSpinning();
+        Bukkit.getPluginManager().callEvent(new PlayerStartSpinningEvent(player,
+                new ChestGui(TreasureChest.getExample())));
 
 //        OmnipotentialChests.getInstance().getConfigsManager().ymlGenerator
 //                .generateYml("testowy", "", "");

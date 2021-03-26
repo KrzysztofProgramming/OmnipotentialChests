@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.player.PlayerEvent;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.guis.ChestGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.base.ChestGui;
 
 public abstract class PlayerSpinningEvent extends PlayerEvent implements Cancellable {
     @Getter
