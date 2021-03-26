@@ -4,6 +4,9 @@ import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import wg.omnipotentialchests.chests.omnipotentialchests.configs.ConfigsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
+import wg.omnipotentialchests.chests.omnipotentialchests.managers.ListenersManager;
+
+import javax.xml.bind.Marshaller;
 
 public final class OmnipotentialChests extends JavaPlugin {
 
@@ -16,14 +19,19 @@ public final class OmnipotentialChests extends JavaPlugin {
     @Getter
     private CommandsManager commandsManager;
 
+    @Getter
+    private ListenersManager listenersManager;
+
     public void createClasses(){
-        this.commandsManager = new CommandsManager();
         this.configsManager = new ConfigsManager();
+        this.listenersManager = new ListenersManager();
+        this.commandsManager = new CommandsManager();
     }
 
     public void initClasses(){
-        this.commandsManager.init();
         this.configsManager.init();
+        this.listenersManager.init();
+        this.commandsManager.init();
     }
 
     @Override

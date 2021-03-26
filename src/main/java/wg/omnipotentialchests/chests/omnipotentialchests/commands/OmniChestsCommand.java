@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.guis.ChestGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -29,7 +31,11 @@ public class OmniChestsCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        ItemStack item = player.getInventory().getItemInMainHand();
+        Bukkit.broadcastMessage(String.valueOf(OmnipotentialChests.getInstance().getDataFolder().mkdir()));
+        ChestGui chestGui = new ChestGui(TreasureChest.getExample());
+        chestGui.open(player);
+        chestGui.startSpinning();
+
 //        OmnipotentialChests.getInstance().getConfigsManager().ymlGenerator
 //                .generateYml("testowy", "", "");
 //        try {

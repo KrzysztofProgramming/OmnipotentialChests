@@ -3,42 +3,60 @@ package wg.omnipotentialchests.chests.omnipotentialchests.engine.guis;
 import ad.guis.ultimateguis.Colors;
 import ad.guis.ultimateguis.engine.basics.BasicGui;
 import com.sun.istack.internal.Nullable;
+import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
+import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureItem;
 
+import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class ChestGui extends BasicGui {
 
+    public final static int ESTIMATED_ITEM_COUNT = 50; //may be bigger but not lower
+    public final static int MINIMUM_SPIN_POSITION = 20;
+    public final static int SPIN_TIME = 100; //in ticks
+
+    @Getter
     private TreasureChest treasureChest;
-    private List<TreasureItem> modifyItemsList = new ArrayList<>(MAX_ITEM_COUNT);
-    private int currentShift = 0;
-    private int itemsInGui = 9;
-    public final static int MAX_ITEM_COUNT = 100;
+    private List<TreasureItem> expandedItemsList = new ArrayList<>(ESTIMATED_ITEM_COUNT);
+    private final Random randomGenerator = new Random();
+    private int currentShift;
 
     public ChestGui(TreasureChest treasureChest, @Nullable BasicGui previousGui) {
         super(4, treasureChest.getName(), previousGui);
         this.treasureChest = treasureChest;
-        this.getLastViewer();
+        this.init();
+    }
+    public ChestGui(TreasureChest treasureChest) {
+        this(treasureChest, null);
+    }
+
+
+    private void init(){
+        ItemStack backgroundOrange = BasicGui.createBackground(Colors.ORANGE);
+        ItemStack backgroundGreen = BasicGui.createBackground(Colors.GREEN);
+
+        this.initModifiedList();
+        this.fillTreasureItems(this.expandedItemsList);
+        this.currentShift = 0;
+
+
+        this.setItem(4,0, backgroundGreen, null);
+        this.setItem(4,2, backgroundGreen, null);
+        this.autoFill(backgroundOrange);
     }
 
 
     private void initModifiedList(){
-        double lowestChance = treasureChest.getLowestChanceItem().getChance();
-        int itemsLeft = MAX_ITEM_COUNT;
-        double percentLeft = 100;
-        int countToInsert = 0;
-        for(int i=0; i<treasureChest.getTreasureItems().size(); i++){
-//            countToInsert = atLeastOne((treasureChest.getTreasureItems().get(i).getChance()/100));
-//
-//
-//
-//            this.insertNTimes(atLeastOne((treasureChest.getTreasureItems().get(i).getChance()/100),
-//                    treasureChest.getTreasureItems().get(i));
+        for(TreasureItem item: treasureChest.getTreasureItems()){
+            int itemCount = atLeastOne(ESTIMATED_ITEM_COUNT * item.getChance()/100);
+            this.insertNTimes(item, itemCount);
         }
+        Collections.shuffle(this.expandedItemsList);
 
     }
 
@@ -47,27 +65,65 @@ public class ChestGui extends BasicGui {
         return (int) value;
     }
 
-    private void insertNTimes(int n, TreasureItem item){
+    private void insertNTimes(TreasureItem item, int n){
         for(int i = 0; i<n; i++) {
-            this.modifyItemsList.add(item);
+            this.expandedItemsList.add(item);
         }
     }
 
-    private void init(){
-        ItemStack backgroundOrange = BasicGui.createBackground(Colors.ORANGE);
-        ItemStack backgroundGreen = BasicGui.createBackground(Colors.GREEN);
-        this.setItem(4,0, backgroundGreen, null);
-        this.setItem(4,2, backgroundGreen, null);
-        this.fillTreasureItems();
-    }
-
-    private void fillTreasureItems(){
+    private void fillTreasureItems(List<TreasureItem> items){
         for(int i=0; i< 9; i++) {
-            this.setItem(i, 1, this.modifyItemsList.get(i).getItem(), null);
+            this.setItem(i, 1, items.get(i).getItem(), null);
         }
+    }
+
+    private TreasureItem randomizeItem(){
+        List<TreasureItem> items = this.treasureChest.getTreasureItems();
+        double random = randomGenerator.nextDouble() * 100;
+        double currentPercent = 0;
+        for (TreasureItem item : items) {
+            if (random <= currentPercent + item.getChance()) {
+                return item;
+            }
+            currentPercent += item.getChance();
+        }
+        return items.get(items.size() - 1);
     }
 
     public void startSpinning(){
+        TreasureItem reward = randomizeItem();
+        List<TreasureItem> shiftedItemsList = new ArrayList<>(this.expandedItemsList);
+        int index = shiftedItemsList.indexOf(reward);
+        int indexAfterMinSpins = (MINIMUM_SPIN_POSITION + 4) % shiftedItemsList.size();
+        int additionalSpins = (shiftedItemsList.size() + index + 1 - indexAfterMinSpins) % shiftedItemsList.size();
+        final int[] totalSpins = {MINIMUM_SPIN_POSITION + additionalSpins};
+        Bukkit.broadcastMessage(reward.getItem().getItemMeta().getDisplayName());
+
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(OmnipotentialChests.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                shiftListLeft(shiftedItemsList);
+                fillTreasureItems(shiftedItemsList);
+                totalSpins[0]--;
+                if(totalSpins[0] <= 0 || !isOpen()) return;
+                Bukkit.getScheduler().scheduleSyncDelayedTask(OmnipotentialChests.getInstance(), this,
+                        (long) Math.max(20/totalSpins[0], 1));
+            }
+        }, 0);
 
     }
+
+    private void shiftListLeft(List<TreasureItem> list){
+        for(int i = 0; i<list.size(); i++){
+            list.set(i, this.expandedItemsList.get((currentShift + i)%list.size()));
+        }
+        currentShift++;
+    }
+
+    public void resetSpinning(){
+        this.init();
+    }
+
+
 }
