@@ -37,10 +37,10 @@ public class OmniChestsCommand implements CommandExecutor {
                     && file.createNewFile())) {
                 player.sendMessage("Can't create a file");
             }
-//            FileOutputStream stream = new FileOutputStream(file);
-//            stream.write(item.serialize().toString().getBytes());
-////            FileInputStream inputStream = new FileInputStream(file);
-////            ItemStack getItem =ItemStack.deserialize((Map<String, Object>) inputStream.read());
+//          FileOutputStream stream = new FileOutputStream(file);
+//          stream.write(item.serialize().toString().getBytes());
+//          FileInputStream inputStream = new FileInputStream(file);
+//          ItemStack getItem =ItemStack.deserialize((Map<String, Object>) inputStream.read());
             OmnipotentialChests.getInstance().getConfig().set("item.elo", item);
             OmnipotentialChests.getInstance().getConfig().save(file);
             ItemStack getItem = (ItemStack) OmnipotentialChests.getInstance().getConfig().get("item.elo");
