@@ -59,6 +59,20 @@ public class JSONGenerator {
     }
 
     @SneakyThrows
+    public void editTreasureChest(String filename, String treasureChestName, TreasureChest editedTreasureChest) {
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+        File jsonFile = new File(folder + "/" + filename + ".json");
+        String jsonString = FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8);
+        JSONTreasureChest[] jsonElement1 = gson.fromJson(jsonString, JSONTreasureChest[].class);
+        List<JSONTreasureChest> treasureChests2 = new ArrayList<>(Arrays.asList(jsonElement1.clone()));
+        treasureChests2.removeIf(item -> item.getName().equals(treasureChestName));
+        FileUtils.writeStringToFile(jsonFile, gson.toJson(treasureChests2), StandardCharsets.UTF_8);
+        this.addToExistingFileByPath(filename, editedTreasureChest);
+    }
+
+    @SneakyThrows
     public TreasureChest readJSONFile(String filename, String treasureChestName) {
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
@@ -105,9 +119,21 @@ public class JSONGenerator {
             return jsonT;
         }).collect(Collectors.toList());
         base64TreasureChest.setTreasureItems(jsonTreasureItem);
-        treasureChests2.add(base64TreasureChest);
+        if (!this.checkIfTreasureChestExists(base64TreasureChest.getName(), treasureChests2)) {
+            treasureChests2.add(base64TreasureChest);
+        }
         FileUtils.writeStringToFile(jsonFile, gson.toJson(treasureChests2), StandardCharsets.UTF_8);
     }
+
+    private boolean checkIfTreasureChestExists(String treasureChestName, List<JSONTreasureChest> jsonTreasureChestList) {
+        for (JSONTreasureChest chest: jsonTreasureChestList) {
+            if (chest.getName().equals(treasureChestName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private boolean makeLogsFolderIfNotExists() {
         if (!folder.exists()) {
