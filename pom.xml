@@ -72,11 +72,22 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
             <groupId>ad.guis</groupId>
             <artifactId>ultimateguis</artifactId>
             <version>RELEASE</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../UltimateGuis.jar</systemPath>
+            <systemPath>${basedir}/UltimateGuis.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

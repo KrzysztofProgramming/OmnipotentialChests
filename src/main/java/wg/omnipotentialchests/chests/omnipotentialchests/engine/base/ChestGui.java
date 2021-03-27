@@ -2,7 +2,6 @@ package wg.omnipotentialchests.chests.omnipotentialchests.engine.base;
 
 import ad.guis.ultimateguis.Colors;
 import ad.guis.ultimateguis.engine.basics.BasicGui;
-import com.sun.istack.internal.Nullable;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
@@ -25,7 +24,7 @@ public class ChestGui extends BasicGui {
     private final Random randomGenerator = new Random();
     private int currentShift;
 
-    public ChestGui(TreasureChest treasureChest, @Nullable BasicGui previousGui) {
+    public ChestGui(TreasureChest treasureChest, BasicGui previousGui) {
         super(4, treasureChest.getName(), previousGui);
         this.treasureChest = treasureChest;
         this.init();
