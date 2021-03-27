@@ -1,6 +1,8 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine.models;
 
 import ad.guis.ultimateguis.engine.basics.BasicGui;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import lombok.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -16,7 +18,9 @@ public class TreasureChest {
 
     @Getter
     @Setter
+    @Expose
     private String name = "";
+    @Expose
     private List<TreasureItem> treasureItems = new ArrayList<>();
 
     public TreasureChest(String name, List<TreasureItem> treasureItems){

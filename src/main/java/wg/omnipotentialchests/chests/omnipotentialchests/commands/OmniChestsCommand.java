@@ -22,6 +22,7 @@ public class OmniChestsCommand implements CommandExecutor {
         command.setExecutor(this);
     }
 
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)){
@@ -33,22 +34,25 @@ public class OmniChestsCommand implements CommandExecutor {
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         TreasureChest treasureChest = new TreasureChest();
-        treasureChest.setName("elo212213123123");
+        treasureChest.setName("elo4");
         List<TreasureItem> list = new ArrayList<>();
-        System.out.println(itemStack);
         TreasureItem treasureItem = new TreasureItem(itemStack,29.9);
         list.add(treasureItem);
         list.add(treasureItem);
         treasureChest.setTreasureItems(list);
 
+//
+//        OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.generateJSONFile("l1");
+//        OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.addObjectToExistingFile("l1", treasureChest);
+//        TreasureChest t = OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.readJSONFile("l1", "elo4");
+//
+//        sender.sendMessage(t.getName());
+//        sender.sendMessage(String.valueOf(t.getTreasureItems()));
 
-      //  OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.generateJSONFile("l1");
-        OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.addObjectToExistingFile("l1", "elo", treasureChest);
 
-
-//        Bukkit.broadcastMessage(String.valueOf(OmnipotentialChests.getInstance().getDataFolder().mkdir()));
-//        Bukkit.getPluginManager().callEvent(new PlayerStartSpinningEvent(player,
-//                new ChestGui(TreasureChest.getExample())));
+                Bukkit.broadcastMessage(String.valueOf(OmnipotentialChests.getInstance().getDataFolder().mkdir()));
+        Bukkit.getPluginManager().callEvent(new PlayerStartSpinningEvent(player,
+                new ChestGui(TreasureChest.getExample())));
 
 //        OmnipotentialChests.getInstance().getConfigsManager().ymlGenerator
 //                .generateYml("testowy", "", "");
