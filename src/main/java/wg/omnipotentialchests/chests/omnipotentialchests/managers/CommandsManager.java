@@ -5,7 +5,7 @@ import wg.omnipotentialchests.chests.omnipotentialchests.commands.OmniChestsComm
 
 public class CommandsManager {
 
-    public void init(){
+    public void init() {
         new OmniChestsCommand(OmnipotentialChests.getInstance().getCommand("omnichests"));
     }
 }

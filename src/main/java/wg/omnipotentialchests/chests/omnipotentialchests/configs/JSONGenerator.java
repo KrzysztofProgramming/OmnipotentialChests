@@ -13,10 +13,7 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.JSONTreas
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureItem;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,17 +25,37 @@ public class JSONGenerator {
 
     private OmnipotentialChests plugin;
     private File folder;
-    private boolean folderCreated;
+    private File mainFolder;
 
     public void init() {
         this.plugin = OmnipotentialChests.getInstance();
+        this.mainFolder = new File(this.plugin.getDataFolder() + "");
         this.folder = new File(this.plugin.getDataFolder() + "/configs");
-        this.folderCreated = makeLogsFolderIfNotExists();
-        OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.generateJSONFile("1");
+        creteJsonFolders();
+    }
+
+    private void creteJsonFolders() {
+        this.makeMainFolder();
+        this.makeChestFolder();
+    }
+
+    private boolean makeMainFolder() {
+        if (!mainFolder.exists()) {
+            return mainFolder.mkdir();
+        }
+        return true;
+    }
+
+    private boolean makeChestFolder() {
+        if (!folder.exists()) {
+            return folder.mkdir();
+        }
+        return true;
     }
 
     @SneakyThrows
     public File generateJSONFile(String filename) {
+        creteJsonFolders();
         File generatedFile = new File(folder + "/" + filename + ".json");
         if (!generatedFile.exists()) {
             FileWriter file = new FileWriter(folder + "/" + filename + ".json");
@@ -51,6 +68,9 @@ public class JSONGenerator {
 
     private JSONTreasureChest getSpecificJSONObject(List<JSONTreasureChest> treasureChests2, String treasureChestName) {
         for (JSONTreasureChest treasure : treasureChests2) {
+            if (treasure.getName() == null) {
+                return null;
+            }
             if (treasure.getName().equals(treasureChestName)) {
                 return treasure;
             }
@@ -58,36 +78,77 @@ public class JSONGenerator {
         return null;
     }
 
-    @SneakyThrows
     public void editTreasureChest(String filename, String treasureChestName, TreasureChest editedTreasureChest) {
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
         File jsonFile = new File(folder + "/" + filename + ".json");
-        String jsonString = FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8);
+        String jsonString;
+        try {
+            jsonString = FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            generateJSONFile(filename);
+            this.addToExistingFileByPath(filename, editedTreasureChest);
+            return;
+        }
         JSONTreasureChest[] jsonElement1 = gson.fromJson(jsonString, JSONTreasureChest[].class);
         List<JSONTreasureChest> treasureChests2 = new ArrayList<>(Arrays.asList(jsonElement1.clone()));
         treasureChests2.removeIf(item -> item.getName().equals(treasureChestName));
-        FileUtils.writeStringToFile(jsonFile, gson.toJson(treasureChests2), StandardCharsets.UTF_8);
+        try {
+            FileUtils.writeStringToFile(jsonFile, gson.toJson(treasureChests2), StandardCharsets.UTF_8);
+        } catch (IOException ignored) {
+        }
         this.addToExistingFileByPath(filename, editedTreasureChest);
     }
 
-    @SneakyThrows
+    public List<TreasureChest> getAllChests(String filename) {
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+        File jsonFile = new File(folder + "/" + filename + ".json");
+        String jsonString;
+        try {
+            jsonString = FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            generateJSONFile(filename);
+            return new ArrayList<>();
+        }
+        JSONTreasureChest[] jsonElement1 = gson.fromJson(jsonString, JSONTreasureChest[].class);
+        List<JSONTreasureChest> treasureChests2 = new ArrayList<>(Arrays.asList(jsonElement1.clone()));
+        List<TreasureChest> treasureChests = new ArrayList<>();
+        for (JSONTreasureChest chest : treasureChests2) {
+            List<JSONTreasureItem> jsonTreasureItemList = chest.getTreasureItems();
+            List<TreasureItem> treasureItems = jsonTreasureItemList.stream().map(item -> new TreasureItem(getItemStackFromBase64(item.getBase64ItemStack()), item.getChance())).collect(Collectors.toList());
+            TreasureChest treasureChest = new TreasureChest();
+            treasureChest.setName(chest.getName());
+            treasureChest.setTreasureItems(treasureItems);
+            treasureChests.add(treasureChest);
+        }
+        return treasureChests;
+    }
+
     public TreasureChest readJSONFile(String filename, String treasureChestName) {
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
         File jsonFile = new File(folder + "/" + filename + ".json");
-        String jsonString = FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8);
-
+        String jsonString;
+        try {
+            jsonString = FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            generateJSONFile(filename);
+            return readJSONFile(filename, treasureChestName);
+        }
         JSONTreasureChest[] jsonElement1 = gson.fromJson(jsonString, JSONTreasureChest[].class);
         List<JSONTreasureChest> treasureChests2 = new ArrayList<>(Arrays.asList(jsonElement1.clone()));
         JSONTreasureChest jsonTreasureChest = getSpecificJSONObject(treasureChests2, treasureChestName);
-
-        assert jsonTreasureChest != null;
+        if (jsonTreasureChest == null) {
+            return new TreasureChest();
+        }
         List<JSONTreasureItem> jsonTreasureItemList = jsonTreasureChest.getTreasureItems();
-        List<TreasureItem> treasureItems = jsonTreasureItemList.stream().map(item -> new TreasureItem(getItemStackFromBase64(item.getBase64ItemStack()), item.getChance())).collect(Collectors.toList());
-
+        List<TreasureItem> treasureItems = jsonTreasureItemList.stream().map(item ->
+                new TreasureItem(getItemStackFromBase64(item.getBase64ItemStack()), item.getChance()))
+                .collect(Collectors.toList());
         TreasureChest treasureChest = new TreasureChest();
         treasureChest.setName(treasureChestName);
         treasureChest.setTreasureItems(treasureItems);
@@ -98,10 +159,16 @@ public class JSONGenerator {
         this.addToExistingFileByPath(filename, treasureChest);
     }
 
-    @SneakyThrows
     private void addToExistingFileByPath(String filename, TreasureChest treasureChest) {
         File jsonFile = new File(folder + "/" + filename + ".json");
-        String jsonString = FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8);
+        String jsonString;
+        try {
+            jsonString = FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            generateJSONFile(filename);
+            this.addToExistingFileByPath(filename, treasureChest);
+            return;
+        }
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
@@ -122,24 +189,19 @@ public class JSONGenerator {
         if (!this.checkIfTreasureChestExists(base64TreasureChest.getName(), treasureChests2)) {
             treasureChests2.add(base64TreasureChest);
         }
-        FileUtils.writeStringToFile(jsonFile, gson.toJson(treasureChests2), StandardCharsets.UTF_8);
+        try {
+            FileUtils.writeStringToFile(jsonFile, gson.toJson(treasureChests2), StandardCharsets.UTF_8);
+        } catch (IOException ignored) {
+        }
     }
 
     private boolean checkIfTreasureChestExists(String treasureChestName, List<JSONTreasureChest> jsonTreasureChestList) {
-        for (JSONTreasureChest chest: jsonTreasureChestList) {
+        for (JSONTreasureChest chest : jsonTreasureChestList) {
             if (chest.getName().equals(treasureChestName)) {
                 return true;
             }
         }
         return false;
-    }
-
-
-    private boolean makeLogsFolderIfNotExists() {
-        if (!folder.exists()) {
-            return folder.mkdir();
-        }
-        return true;
     }
 
     @SneakyThrows

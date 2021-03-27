@@ -1,6 +1,5 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,8 +7,6 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerStartSpinningEvent;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.base.ChestGui;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureItem;
 
@@ -18,14 +15,14 @@ import java.util.List;
 
 public class OmniChestsCommand implements CommandExecutor {
 
-    public OmniChestsCommand(PluginCommand command){
+    public OmniChestsCommand(PluginCommand command) {
         command.setExecutor(this);
     }
 
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             sender.sendMessage("Only player can execute this command");
             return true;
         }
@@ -50,7 +47,7 @@ public class OmniChestsCommand implements CommandExecutor {
         OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.generateJSONFile("l1");
 
         // wtkomentuj jeśli testujesz na jednym obiekcie
-        OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.addObjectToExistingFile("l1", treasureChest);
+        // OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.addObjectToExistingFile("l1", treasureChest);
 
         // pobiera i konwertuje na ItemStack
         OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.editTreasureChest("l1", treasureChest.getName(), treasureChest);
@@ -58,11 +55,17 @@ public class OmniChestsCommand implements CommandExecutor {
         sender.sendMessage("Chest name: " + t.getName());
         sender.sendMessage("");
         sender.sendMessage("Item list: " + t.getTreasureItems());
+
+        //        for (TreasureChest chests: OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.getAllChests("l1")) {
+        //            sender.sendMessage("");
+        //            sender.sendMessage(chests.getName());
+        //            sender.sendMessage(chests.getTreasureItems().toString());
+        //            sender.sendMessage("");
+        //        }
         */
 
-
-        Bukkit.broadcastMessage(String.valueOf(OmnipotentialChests.getInstance().getDataFolder().mkdir()));
-        Bukkit.getPluginManager().callEvent(new PlayerStartSpinningEvent(player, new ChestGui(TreasureChest.getExample())));
+//        Bukkit.broadcastMessage(String.valueOf(OmnipotentialChests.getInstance().getDataFolder().mkdir()));
+//        Bukkit.getPluginManager().callEvent(new PlayerStartSpinningEvent(player, new ChestGui(TreasureChest.getExample())));
 
 //        OmnipotentialChests.getInstance().getConfigsManager().ymlGenerator
 //                .generateYml("testowy", "", "");

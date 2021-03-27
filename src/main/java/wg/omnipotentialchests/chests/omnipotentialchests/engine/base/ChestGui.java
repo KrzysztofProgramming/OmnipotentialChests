@@ -10,18 +10,21 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerFin
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerStartSpinningEvent;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureItem;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 
 public class ChestGui extends BasicGui {
 
     public final static int ESTIMATED_ITEM_COUNT = 50; //may be bigger but not lower
     public final static int MINIMUM_SPIN_POSITION = 20;
-
-    @Getter
-    private TreasureChest treasureChest;
-    private List<TreasureItem> expandedItemsList = new ArrayList<>(ESTIMATED_ITEM_COUNT);
     private final Random randomGenerator = new Random();
+    @Getter
+    private final TreasureChest treasureChest;
+    private final List<TreasureItem> expandedItemsList = new ArrayList<>(ESTIMATED_ITEM_COUNT);
     private int currentShift;
 
     public ChestGui(TreasureChest treasureChest, BasicGui previousGui) {
@@ -29,12 +32,13 @@ public class ChestGui extends BasicGui {
         this.treasureChest = treasureChest;
         this.init();
     }
+
     public ChestGui(TreasureChest treasureChest) {
         this(treasureChest, null);
     }
 
 
-    private void init(){
+    private void init() {
         ItemStack backgroundOrange = BasicGui.createBackground(Colors.ORANGE);
         ItemStack backgroundGreen = BasicGui.createBackground(Colors.GREEN);
 
@@ -43,39 +47,39 @@ public class ChestGui extends BasicGui {
         this.currentShift = 0;
 
 
-        this.setItem(4,0, backgroundGreen, null);
-        this.setItem(4,2, backgroundGreen, null);
+        this.setItem(4, 0, backgroundGreen, null);
+        this.setItem(4, 2, backgroundGreen, null);
         this.autoFill(backgroundOrange);
     }
 
 
-    private void initModifiedList(){
-        for(TreasureItem item: treasureChest.getTreasureItems()){
-            int itemCount = atLeastOne(ESTIMATED_ITEM_COUNT * item.getChance()/100);
+    private void initModifiedList() {
+        for (TreasureItem item : treasureChest.getTreasureItems()) {
+            int itemCount = atLeastOne(ESTIMATED_ITEM_COUNT * item.getChance() / 100);
             this.insertNTimes(item, itemCount);
         }
         Collections.shuffle(this.expandedItemsList);
 
     }
 
-    private int atLeastOne(double value){
-        if(value <= 1) return 1;
+    private int atLeastOne(double value) {
+        if (value <= 1) return 1;
         return (int) value;
     }
 
-    private void insertNTimes(TreasureItem item, int n){
-        for(int i = 0; i<n; i++) {
+    private void insertNTimes(TreasureItem item, int n) {
+        for (int i = 0; i < n; i++) {
             this.expandedItemsList.add(item);
         }
     }
 
-    private void fillTreasureItems(List<TreasureItem> items){
-        for(int i=0; i< 9; i++) {
+    private void fillTreasureItems(List<TreasureItem> items) {
+        for (int i = 0; i < 9; i++) {
             this.setItem(i, 1, items.get(i).getItem(), null);
         }
     }
 
-    private TreasureItem randomizeItem(){
+    private TreasureItem randomizeItem() {
         List<TreasureItem> items = this.treasureChest.getTreasureItems();
         double random = randomGenerator.nextDouble() * 100;
         double currentPercent = 0;
@@ -88,11 +92,11 @@ public class ChestGui extends BasicGui {
         return items.get(items.size() - 1);
     }
 
-    public void startSpinning(){
+    public void startSpinning() {
         Bukkit.getPluginManager().callEvent(new PlayerStartSpinningEvent(this.getLastViewer(), this));
     }
 
-    void startSpinningWithoutEvent(){
+    void startSpinningWithoutEvent() {
         TreasureItem reward = randomizeItem();
         List<TreasureItem> shiftedItemsList = new ArrayList<>(this.expandedItemsList);
         int index = shiftedItemsList.indexOf(reward);
@@ -109,12 +113,12 @@ public class ChestGui extends BasicGui {
                 shiftListLeft(shiftedItemsList);
                 fillTreasureItems(shiftedItemsList);
                 spinsLeft[0]--;
-                if(spinsLeft[0] <= 0){
+                if (spinsLeft[0] <= 0) {
                     Bukkit.getPluginManager().callEvent(new PlayerFinishedSpinningEvent(
                             ChestGui.this.getLastViewer(), ChestGui.this, reward));
                     return;
                 }
-                if(!isOpen()){
+                if (!isOpen()) {
                     ChestGui.this.open(getLastViewer());
                     currentShift = totalSpins;
                     shiftListLeft(shiftedItemsList);
@@ -123,21 +127,21 @@ public class ChestGui extends BasicGui {
                     return;
                 }
                 Bukkit.getScheduler().scheduleSyncDelayedTask(OmnipotentialChests.getInstance(), this,
-                        Math.max(20/spinsLeft[0], 1));
+                        Math.max(20 / spinsLeft[0], 1));
             }
         }, 0);
 
     }
 
-    private void shiftListLeft(List<TreasureItem> list){
-        for(int i = 0; i<list.size(); i++){
-            list.set(i, this.expandedItemsList.get((currentShift + i)%list.size()));
+    private void shiftListLeft(List<TreasureItem> list) {
+        for (int i = 0; i < list.size(); i++) {
+            list.set(i, this.expandedItemsList.get((currentShift + i) % list.size()));
         }
         currentShift++;
         Bukkit.broadcastMessage(String.valueOf(currentShift));
     }
 
-    public void resetSpinning(){
+    public void resetSpinning() {
         this.init();
     }
 

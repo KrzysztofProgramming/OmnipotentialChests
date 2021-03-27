@@ -3,12 +3,12 @@ package wg.omnipotentialchests.chests.omnipotentialchests.managers;
 import lombok.Getter;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.base.SpinListener;
 
-public class ListenersManager{
+public class ListenersManager {
 
     @Getter
-    private SpinListener spinListener = new SpinListener();
+    private final SpinListener spinListener = new SpinListener();
 
-    public void init(){
+    public void init() {
         this.spinListener.init();
     }
 }

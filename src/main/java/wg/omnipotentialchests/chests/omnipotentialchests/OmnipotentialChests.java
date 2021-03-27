@@ -6,7 +6,6 @@ import wg.omnipotentialchests.chests.omnipotentialchests.configs.ConfigsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.ListenersManager;
 
-import javax.xml.bind.Marshaller;
 
 public final class OmnipotentialChests extends JavaPlugin {
 
@@ -22,13 +21,13 @@ public final class OmnipotentialChests extends JavaPlugin {
     @Getter
     private ListenersManager listenersManager;
 
-    public void createClasses(){
+    public void createClasses() {
         this.configsManager = new ConfigsManager();
         this.listenersManager = new ListenersManager();
         this.commandsManager = new CommandsManager();
     }
 
-    public void initClasses(){
+    public void initClasses() {
         this.configsManager.init();
         this.listenersManager.init();
         this.commandsManager.init();
@@ -39,13 +38,11 @@ public final class OmnipotentialChests extends JavaPlugin {
         instance = this;
         createClasses();
         initClasses();
-
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
-        if(instance==this)
+        if (instance == this)
             instance = null;
     }
 }

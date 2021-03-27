@@ -11,23 +11,23 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerSta
 
 public class SpinListener implements Listener {
 
-    public void init(){
+    public void init() {
         Bukkit.getPluginManager().registerEvents(this, OmnipotentialChests.getInstance());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    private void startSpinningHandler(PlayerStartSpinningEvent e){
+    private void startSpinningHandler(PlayerStartSpinningEvent e) {
         e.getChestGui().open(e.getPlayer());
         e.getChestGui().startSpinningWithoutEvent();
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    private void finishedSpinningHandler(PlayerFinishedSpinningEvent e){
+    private void finishedSpinningHandler(PlayerFinishedSpinningEvent e) {
         e.getPlayer().getInventory().addItem(e.getRewardItem().getItem());
     }
 
     @EventHandler
-    private void onCloseHandler(InventoryCloseEvent e){
+    private void onCloseHandler(InventoryCloseEvent e) {
 
     }
 }
