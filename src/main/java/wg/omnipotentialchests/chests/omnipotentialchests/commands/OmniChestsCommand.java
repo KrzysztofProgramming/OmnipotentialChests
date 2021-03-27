@@ -31,6 +31,8 @@ public class OmniChestsCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
 
+        // usuń zewnętrzne komentarze /*
+
         /*
         //  treasureChest.setName("elo3") jest unikatowe i po tym pobierasz skrzynie
         // ====================Klasa testowa=======================
@@ -53,9 +55,11 @@ public class OmniChestsCommand implements CommandExecutor {
         // pobiera i konwertuje na ItemStack
         OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.editTreasureChest("l1", treasureChest.getName(), treasureChest);
         TreasureChest t = OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.readJSONFile("l1", treasureChest.getName());
-        sender.sendMessage(t.getName());
-        sender.sendMessage(String.valueOf(t.getTreasureItems()));
+        sender.sendMessage("Chest name: " + t.getName());
+        sender.sendMessage("");
+        sender.sendMessage("Item list: " + t.getTreasureItems());
         */
+
 
         Bukkit.broadcastMessage(String.valueOf(OmnipotentialChests.getInstance().getDataFolder().mkdir()));
         Bukkit.getPluginManager().callEvent(new PlayerStartSpinningEvent(player, new ChestGui(TreasureChest.getExample())));
@@ -77,7 +81,7 @@ public class OmniChestsCommand implements CommandExecutor {
 //        catch(IOException e){
 //            e.printStackTrace();
 //        }
-        player.sendMessage("git");
+//        player.sendMessage("git");
         return true;
     }
 }
