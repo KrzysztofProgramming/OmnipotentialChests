@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
+@ToString
 public class TreasureChest {
 
     @Getter
