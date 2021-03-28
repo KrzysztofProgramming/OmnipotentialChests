@@ -42,41 +42,41 @@ public final class OmnipotentialChests extends JavaPlugin {
     }
 
     private void enablingMessage() {
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("      &6,ad8888ba,      ,ad8888ba,   &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &6d8'      `8b    d8'       `8b &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors("    &6d8'        `8b  d8'            &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors("    &688          88  88             &e88aaaaaaaa88"));
-        getServer().getConsoleSender().sendMessage(convertColors("    &688          88  88             &e88\"\"\"\"\"\"\"\"88"));
-        getServer().getConsoleSender().sendMessage(convertColors("    &6Y8,        ,8P  Y8,            &e88        88  "));
-        getServer().getConsoleSender().sendMessage(convertColors("     &6Y8a.    .a8P    Y8a.    .a8P  &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors("       &6`Y8888Y'        `Y8888Y'    &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fOmnipotentialChests v    "+ getPluginVersion()));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fRunning on Spigot -  " + getMinecraftVersion(Bukkit.getServer())));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fMade by DevieTeam"));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fAction: &2Plugin Enabled!"));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("      &6,ad8888ba,      &e,ad8888ba,   88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("     &6d8'      `8b    &ed8'       `8b 88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &6d8'        `8b  &ed8'            88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &688          88  &e88             88aaaaaaaa88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &688          88  &e88             88\"\"\"\"\"\"\"\"88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &6Y8,        ,8P  &eY8,            88        88  "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("     &6Y8a.    .a8P    &eY8a.    .a8P  88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("       &6`Y8888Y'        &e`Y8888Y'    88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fOmnipotentialChests v"+ getPluginVersion()));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fRunning on Spigot - " + getMinecraftVersion(Bukkit.getServer())));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fMade by DevieTeam"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fAction: &2Plugin Enabled!"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
     }
 
     private void disablingMessage() {
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("      &6,ad8888ba,      ,ad8888ba,   &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &6d8'      `8b    d8'       `8b &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors("    &6d8'        `8b  d8'            &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors("    &688          88  88             &e88aaaaaaaa88"));
-        getServer().getConsoleSender().sendMessage(convertColors("    &688          88  88             &e88\"\"\"\"\"\"\"\"88"));
-        getServer().getConsoleSender().sendMessage(convertColors("    &6Y8,        ,8P  Y8,            &e88        88  "));
-        getServer().getConsoleSender().sendMessage(convertColors("     &6Y8a.    .a8P    Y8a.    .a8P  &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors("       &6`Y8888Y'        `Y8888Y'    &e88        88"));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fOmnipotentialChests v    "+ getPluginVersion()));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fRunning on Spigot -  " + getMinecraftVersion(Bukkit.getServer())));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fMade by DevieTeam"));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fAction: &cDisabling...."));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("      &6,ad8888ba,      &e,ad8888ba,   88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("     &6d8'      `8b    &ed8'       `8b 88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &6d8'        `8b  &ed8'            88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &688          88  &e88             88aaaaaaaa88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &688          88  &e88             88\"\"\"\"\"\"\"\"88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &6Y8,        ,8P  &eY8,            88        88  "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("     &6Y8a.    .a8P    &eY8a.    .a8P  88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("       &6`Y8888Y'        &e`Y8888Y'    88        88"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fOmnipotentialChests v"+ getPluginVersion()));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fRunning on Spigot - " + getMinecraftVersion(Bukkit.getServer())));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fMade by DevieTeam"));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fAction: &cDisabling...."));
+        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
 
     }
 
