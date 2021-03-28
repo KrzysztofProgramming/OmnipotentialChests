@@ -1,5 +1,6 @@
 package wg.omnipotentialchests.chests.omnipotentialchests;
 
+import ad.guis.ultimateguis.UltimateGuis;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,8 +11,14 @@ import wg.omnipotentialchests.chests.omnipotentialchests.configs.ConfigsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.ListenersManager;
 
+import java.util.logging.Logger;
+
+import static ad.guis.ultimateguis.ANSIColors.*;
+
 
 public final class OmnipotentialChests extends JavaPlugin {
+
+    Logger logger;
 
     @Getter
     private static OmnipotentialChests instance;
@@ -42,41 +49,41 @@ public final class OmnipotentialChests extends JavaPlugin {
     }
 
     private void enablingMessage() {
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("      &6,ad8888ba,      &e,ad8888ba,   88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("     &6d8'      `8b    &ed8'       `8b 88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &6d8'        `8b  &ed8'            88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &688          88  &e88             88aaaaaaaa88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &688          88  &e88             88\"\"\"\"\"\"\"\"88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &6Y8,        ,8P  &eY8,            88        88  "));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("     &6Y8a.    .a8P    &eY8a.    .a8P  88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("       &6`Y8888Y'        &e`Y8888Y'    88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fOmnipotentialChests v"+ getPluginVersion()));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fRunning on Spigot - " + getMinecraftVersion(Bukkit.getServer())));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fMade by DevieTeam"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fAction: &2Plugin Enabled!"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
+        logger.info(" ");
+        logger.info(ANSI_YELLOW + "      ,ad8888ba,   " + ANSI_BRIGHT_YELLOW + "   ,ad8888ba,   88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "     d8'      `8b  " + ANSI_BRIGHT_YELLOW + "  d8'       `8b 88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "    d8'        `8b " + ANSI_BRIGHT_YELLOW + " d8'            88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "    88          88 " + ANSI_BRIGHT_YELLOW + " 88             88aaaaaaaa88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "    88          88 " + ANSI_BRIGHT_YELLOW + " 88             88\"\"\"\"\"\"\"\"88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "    Y8,        ,8P " + ANSI_BRIGHT_YELLOW + " Y8,            88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "     Y8a.    .a8P  " + ANSI_BRIGHT_YELLOW + "  Y8a.    .a8P  88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "       `Y8888Y'    " + ANSI_BRIGHT_YELLOW + "    `Y8888Y'    88        88" + ANSI_RESET);
+        logger.info(" ");
+        logger.info("         OmnipotentialChests v"+ getPluginVersion());
+        logger.info("         Running on Spigot - " + getMinecraftVersion(Bukkit.getServer()));
+        logger.info("         Made by DevieTeam");
+        logger.info(" ");
+        logger.info("         Action: " + ANSI_GREEN + "Plugin Enabled!" + ANSI_RESET);
+        logger.info(" ");
     }
 
     private void disablingMessage() {
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("      &6,ad8888ba,      &e,ad8888ba,   88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("     &6d8'      `8b    &ed8'       `8b 88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &6d8'        `8b  &ed8'            88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &688          88  &e88             88aaaaaaaa88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &688          88  &e88             88\"\"\"\"\"\"\"\"88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("    &6Y8,        ,8P  &eY8,            88        88  "));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("     &6Y8a.    .a8P    &eY8a.    .a8P  88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("       &6`Y8888Y'        &e`Y8888Y'    88        88"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fOmnipotentialChests v"+ getPluginVersion()));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fRunning on Spigot - " + getMinecraftVersion(Bukkit.getServer())));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fMade by DevieTeam"));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors("         &fAction: &cDisabling...."));
-        Bukkit.getServer().getConsoleSender().sendMessage(convertColors(" "));
+        logger.info(" ");
+        logger.info(ANSI_YELLOW + "      ,ad8888ba,   " + ANSI_BRIGHT_YELLOW + "   ,ad8888ba,   88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "     d8'      `8b  " + ANSI_BRIGHT_YELLOW + "  d8'       `8b 88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "    d8'        `8b " + ANSI_BRIGHT_YELLOW + " d8'            88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "    88          88 " + ANSI_BRIGHT_YELLOW + " 88             88aaaaaaaa88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "    88          88 " + ANSI_BRIGHT_YELLOW + " 88             88\"\"\"\"\"\"\"\"88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "    Y8,        ,8P " + ANSI_BRIGHT_YELLOW + " Y8,            88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "     Y8a.    .a8P  " + ANSI_BRIGHT_YELLOW + "  Y8a.    .a8P  88        88" + ANSI_RESET);
+        logger.info(ANSI_YELLOW + "       `Y8888Y'    " + ANSI_BRIGHT_YELLOW + "    `Y8888Y'    88        88" + ANSI_RESET);
+        logger.info(" ");
+        logger.info("         OmnipotentialChests v"+ getPluginVersion());
+        logger.info("         Running on Spigot - " + getMinecraftVersion(Bukkit.getServer()));
+        logger.info("         Made by DevieTeam");
+        logger.info(" ");
+        logger.info("         Action: " + ANSI_RED + "Disabling..." + ANSI_RESET);
+        logger.info(" ");
 
     }
 
@@ -94,6 +101,7 @@ public final class OmnipotentialChests extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        this.logger =  Logger.getLogger("");
         enablingMessage();
         instance = this;
         createClasses();
