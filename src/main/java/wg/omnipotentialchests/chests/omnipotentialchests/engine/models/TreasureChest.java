@@ -7,6 +7,8 @@ import lombok.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.ChestItem;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.KeyItem;
 
 import javax.swing.text.html.ListView;
 import java.util.*;
@@ -44,6 +46,13 @@ public class TreasureChest {
         return Collections.unmodifiableList(treasureItems);
     }
 
+    public KeyItem getKeyItem(){
+        return new KeyItem(this.getName());
+    }
+
+    public ChestItem getTreasureItem(){
+        return new ChestItem(this.getName());
+    }
 
     public static TreasureChest getExample(){
         ItemStack netherStar = BasicGui.createItem(Material.NETHER_STAR, "Star of omnipotential power");
@@ -58,7 +67,7 @@ public class TreasureChest {
         items.add(new TreasureItem(netherStar,1));
         items.add(new TreasureItem(dragonEgg, 5));
         items.add(new TreasureItem( diamond, 9));
-        items.add(new TreasureItem(meat, 10));
+        items.add(new TreasureItem(meat, 20));
         items.add(new TreasureItem(dirt, 55));
         items.add(new TreasureItem(leggings, 5));
         items.add(new TreasureItem(sword, 5));

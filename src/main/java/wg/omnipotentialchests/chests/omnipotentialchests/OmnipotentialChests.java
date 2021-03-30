@@ -111,6 +111,7 @@ public final class OmnipotentialChests extends JavaPlugin {
     @Override
     public void onDisable() {
         disablingMessage();
+        this.getListenersManager().disable();
         if (instance == this)
             instance = null;
     }

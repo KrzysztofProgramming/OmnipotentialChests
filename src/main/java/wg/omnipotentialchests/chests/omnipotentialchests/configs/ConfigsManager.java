@@ -1,8 +1,11 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.configs;
 
+import lombok.Getter;
+
 public class ConfigsManager {
 
-    public JSONGenerator JSONGenerator;
+    @Getter
+    private JSONGenerator JSONGenerator;
 
     public ConfigsManager() {
         this.JSONGenerator = new JSONGenerator();

@@ -1,5 +1,6 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -7,17 +8,17 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.base.ChestGui;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.ChestsManager;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.LoreManager;
 
 public class OmniChestsCommand implements CommandExecutor {
 
+
+    private final ChestsManager chestsManager;
+
     public OmniChestsCommand(PluginCommand command) {
         command.setExecutor(this);
+        this.chestsManager = OmnipotentialChests.getInstance().getListenersManager().getChestsManager();
     }
 
 
@@ -27,10 +28,16 @@ public class OmniChestsCommand implements CommandExecutor {
             sender.sendMessage("Only player can execute this command");
             return true;
         }
-        Player player = (Player) sender;
-        ChestGui gui = new ChestGui(TreasureChest.getExample());
-        gui.startSpinning(player);
-////         usuń zewnętrzne komentarze
+        Player player = (Player)sender;
+        ItemStack item = player.getInventory().getItemInMainHand().clone();
+        LoreManager.applyEnchants(item, "siema", "ziomuś", "kupa", "kozak");
+        LoreManager.removeEnchant(item, "siema");
+        player.getInventory().addItem(item);
+        Bukkit.broadcastMessage(String.valueOf(LoreManager.getEnchants(item)));
+
+
+
+//         usuń zewnętrzne komentarze
 //
 //        OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator.generateJSONFile("testowy");
 //        OmnipotentialChests.getInstance().getConfigsManager().JSONGenerator
