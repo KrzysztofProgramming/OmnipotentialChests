@@ -16,7 +16,6 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.ChestItem;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.KeyItem;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 
-import java.security.Key;
 import java.util.*;
 import java.util.stream.Collectors;
 

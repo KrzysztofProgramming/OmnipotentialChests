@@ -11,7 +11,7 @@ commands:
       - chests
       - omchests
   getchest:
-    usage: getchest [name] <count>
+    usage: getchest [name] [count]
     description: get typed chest and key for it
     permission: omnipotentialchests.commands.getchest
   editchest:

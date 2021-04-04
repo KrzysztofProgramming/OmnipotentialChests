@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class TreasureChest {
 
     @Getter
+    @Setter
     @Expose
     private String name = "";
     @Expose
@@ -29,10 +30,6 @@ public class TreasureChest {
     public TreasureChest(String name, List<TreasureItem> treasureItems){
         this.setName(name);
         this.setTreasureItems(treasureItems);
-    }
-
-    public void setName(String name){
-        this.name = name.replaceAll(" ", "_");
     }
 
     @SneakyThrows

@@ -11,6 +11,10 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.creators.ChestCr
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class CreateChestCommand implements CommandExecutor {
 
     private final ChestsManager chestsManager;
@@ -30,17 +34,13 @@ public class CreateChestCommand implements CommandExecutor {
             sender.sendMessage(CommandsManager.getDescription(label, command));
             return true;
         }
-        if(args.length > 1){
-            sender.sendMessage(OmnipotentialChests.convertColors(
-                    "&cChest's name can't contains spaces (use: \"&l_&r&c\") instead"));
-            return true;
-        }
-        TreasureChest chest = chestsManager.getTreasureChest(args[0]);
+        String chestName = String.join(" ", args);
+        TreasureChest chest = chestsManager.getTreasureChest(chestName);
         if(chest!=null){
             sender.sendMessage(OmnipotentialChests.convertColors("&cChest with that name already exists"));
             return true;
         }
-        new ChestCreatorGui(OmnipotentialChests.convertColors(args[0]), null).open((Player) sender);
+        new ChestCreatorGui(OmnipotentialChests.convertColors(chestName), null).open((Player) sender);
         return true;
     }
 }

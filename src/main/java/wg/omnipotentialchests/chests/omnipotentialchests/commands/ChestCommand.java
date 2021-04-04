@@ -26,7 +26,7 @@ public abstract class ChestCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(CommandsManager.getDescription(label, command));
             return null;
         }
-        TreasureChest chest = chestsManager.getTreasureChest(args[0]);
+        TreasureChest chest = chestsManager.getTreasureChest(String.join(" ", args));
         if(chest == null){
             sender.sendMessage(OmnipotentialChests.convertColors("&cThere's no chest with that name"));
             return null;

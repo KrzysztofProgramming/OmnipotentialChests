@@ -8,6 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
+import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class GetChestCommand extends ChestCommand {
 
@@ -21,19 +25,23 @@ public class GetChestCommand extends ChestCommand {
             sender.sendMessage(OmnipotentialChests.convertColors("&cOnly player can execute this command"));
             return true;
         }
-        TreasureChest chest = this.getChestWithValidation(sender, command, label, args);
+        if(args.length < 2){
+            sender.sendMessage(CommandsManager.getDescription(label, command));
+            return true;
+        }
+        TreasureChest chest = this.getChestWithValidation(sender, command, label,
+                Arrays.copyOfRange(args, 0, args.length - 1));
+
         if(chest == null) return true;
         Player player = (Player)sender;
-        int count = 1;
-        if(args.length >= 2){
-            try{
-                count = Integer.parseInt(args[1]);
-                if(count <=0 ) count = 1;
-            }
-            catch (NumberFormatException e){
-                player.sendMessage(OmnipotentialChests.convertColors("&cWrong number format"));
-                return true;
-            }
+        int count;
+        try{
+            count = Integer.parseInt(args[args.length - 1]);
+            if(count <=0 ) count = 1;
+        }
+        catch (NumberFormatException e){
+            player.sendMessage(OmnipotentialChests.convertColors("&cWrong number format"));
+            return true;
         }
         ItemStack chestItem = chest.getChestItem();
         ItemStack keyItem = chest.getKeyItem();

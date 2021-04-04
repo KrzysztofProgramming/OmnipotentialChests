@@ -8,11 +8,9 @@ import ad.guis.ultimateguis.examples.ConfirmGui;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Dye;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.ChestsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
@@ -49,21 +47,27 @@ public class ChestCreatorGui extends ModifiableGui {
         this.chestName = chest.getName();
         this.chestsManager = OmnipotentialChests.getInstance().getListenersManager().getChestsManager();
         this.chatManager = OmnipotentialChests.getInstance().getListenersManager().getChatManager();
-        this.setItems(chest.getTreasureItems());
+        this.setTreasureItems(chest.getTreasureItems());
         this.init(false);
     }
 
 
-    private void setItems(List<TreasureItem> items){
+    private void setTreasureItems(List<TreasureItem> items){
         this.currentChances = items.stream().collect(Collectors.toMap(TreasureItem::getItem, TreasureItem::getChance));
-        getGui().setContents(items.stream().map(TreasureItem::getItem).toArray(ItemStack[]::new));
+        this.setItems(items.stream().map(TreasureItem::getItem).collect(Collectors.toList()));
+    }
+
+    private void setItems(List<ItemStack> items){
+        for(int i = 0; i<FIRST_UNMODIFIABLE_SLOT && i < items.size(); i++){
+            getGui().setItem(i, items.get(i));
+        }
     }
 
     public void init(boolean itemsModifiable){
         ItemStack background = BasicGui.createBackground(Colors.GRAY);
         ItemStack resetChanceItem = BasicGui.createItem(Material.GLASS, OmnipotentialChests
                 .convertColors("&eReset chances"));
-        ItemStack changeNameItem = BasicGui.createItem(Material.PAPER, OmnipotentialChests.convertColors(
+        ItemStack copyChestItem = BasicGui.createItem(Material.PAPER, OmnipotentialChests.convertColors(
                 "&d&lCopy chest"), BasicGui.splitLoreWithConversion(
                         "&fCreate new chest and start editing with current items", 30));
 
@@ -73,10 +77,13 @@ public class ChestCreatorGui extends ModifiableGui {
         ItemStack removeChestItem = BasicGui.createItem(Material.BARRIER, OmnipotentialChests.convertColors(
                 "&c&lRemove chest"));
 
-        this.setItem(0, 5, changeNameItem, this::onChangeNameClick);
+        ItemStack sortItem = BasicGui.createItem(Material.BOOKSHELF, OmnipotentialChests.convertColors(
+                "&9Sort items"));
+
+        this.setItem(0, 5, copyChestItem, this::onCopyChestClick);
         this.setItem(1, 5, background, null);
         this.setItem(2, 5, resetChanceItem, player -> this.resetChances());
-        this.setItem(3, 5, background, null);
+        this.setItem(3, 5, sortItem, player -> this.sortItems());
         //inserting item
         this.setItem(5, 5, saveItems, this::saveChest);
         this.setItem(6, 5, background, null);
@@ -86,6 +93,12 @@ public class ChestCreatorGui extends ModifiableGui {
                 OmnipotentialChests.convertColors("&6Back")), this::backOrClose);
 
         this.switchMode(itemsModifiable);
+    }
+
+    public void sortItems(){
+        this.setItems(getCurrentTreasureItems().stream()
+                .sorted(Comparator.comparingDouble(TreasureItem::getChance))
+                .map(TreasureItem::getItem).collect(Collectors.toList()));
     }
 
     private void onRemoveChestClick(Player p){
@@ -102,7 +115,7 @@ public class ChestCreatorGui extends ModifiableGui {
         }, this::open, true).open(p);
     }
 
-    private void onChangeNameClick(Player p){
+    private void onCopyChestClick(Player p){
         this.allowClosed = true;
         p.closeInventory();
         p.sendMessage(OmnipotentialChests.convertColors("&aEnter new chest's name, &r&l"
@@ -146,7 +159,7 @@ public class ChestCreatorGui extends ModifiableGui {
         else{
             item = BasicGui.createItem(Material.BOOK, OmnipotentialChests.convertColors("&6&lMode"),
                     BasicGui.simpleSplitLore(OmnipotentialChests.convertColors(
-                            "&fcurrent: &a&setting chances"),
+                            "&fcurrent: &asetting chances"),
                             OmnipotentialChests.convertColors("&bClick to switch mode")));
         }
 
@@ -164,8 +177,6 @@ public class ChestCreatorGui extends ModifiableGui {
             this.hideAllPercentValues();
         }
     }
-
-
 
     private void showAllPercentValues(){
         for(int i=0; i<FIRST_UNMODIFIABLE_SLOT; i++){
@@ -217,7 +228,6 @@ public class ChestCreatorGui extends ModifiableGui {
     private boolean isProgressSaved(){
         TreasureChest savedChest = chestsManager.getTreasureChest(this.chestName);
         return this.getTreasureChest().equals(savedChest);
-            //    || (savedChest == null && this.currentItems.isEmpty());
     }
 
     private void setItemsModifiable(boolean value){
@@ -247,16 +257,19 @@ public class ChestCreatorGui extends ModifiableGui {
 
 
     public TreasureChest getTreasureChest(){
-        List<TreasureItem> items = this.currentItems.stream()
-                .map(this::getTreasureItem).filter(Objects::nonNull).collect(Collectors.toList());
-        return new TreasureChest(chestName, items);
+        return new TreasureChest(chestName, this.getCurrentTreasureItems());
 
+    }
+
+    private List<TreasureItem> getCurrentTreasureItems(){
+        return this.currentItems.stream().filter(Objects::nonNull)
+                .map(this::getTreasureItem).collect(Collectors.toList());
     }
 
     private TreasureItem getTreasureItem(ItemStack item){
         try{
             double chance = this.currentChances.get(PercentManager.removePercentValueAndCopy(item));
-            return chance > 0 ? new TreasureItem(PercentManager.removePercentValueAndCopy(item), chance) : null;
+            return new TreasureItem(PercentManager.removePercentValueAndCopy(item), chance);
         }
         catch(NullPointerException ignore){}
         return null;
@@ -266,9 +279,8 @@ public class ChestCreatorGui extends ModifiableGui {
     public void onClose() {
         if(!this.isProgressSaved() && !allowClosed){
            ConfirmGui confirmGui = new ConfirmGui(OmnipotentialChests.convertColors("&bExit without saving?"),
-                   HumanEntity::closeInventory, this::open, true);
+                   this::backOrClose, this::open, true);
            confirmGui.open(this.getLastViewer());
-
         }
         super.onClose();
     }
