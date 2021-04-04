@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class KeyItem extends ItemStack {
     public static final String KEY_LORE_PHRASE = "K洛®";
 
-    public KeyItem(String chestName){
+    public KeyItem(String chestName) {
         super(Material.TRIPWIRE_HOOK);
         ItemMeta meta = this.getItemMeta();
         meta.setDisplayName(OmnipotentialChests.convertColors(chestName + " &rkey"));
@@ -21,11 +21,11 @@ public class KeyItem extends ItemStack {
     }
 
 
-    public static boolean canOpenThisChest(ItemStack item, String chestName){
+    public static boolean canOpenThisChest(ItemStack item, String chestName) {
         return getOpenableChests(item).contains(chestName);
     }
 
-    public static List<String> getOpenableChests(ItemStack item){
+    public static List<String> getOpenableChests(ItemStack item) {
         return LoreManager.getEnchants(item).stream()
                 .filter(enchant -> enchant.startsWith(KEY_LORE_PHRASE))
                 .map(enchant -> enchant.substring(KEY_LORE_PHRASE.length()))

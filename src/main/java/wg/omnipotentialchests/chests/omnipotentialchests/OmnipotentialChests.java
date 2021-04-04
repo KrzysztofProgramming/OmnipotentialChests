@@ -1,6 +1,5 @@
 package wg.omnipotentialchests.chests.omnipotentialchests;
 
-import ad.guis.ultimateguis.UltimateGuis;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,11 +17,9 @@ import static ad.guis.ultimateguis.ANSIColors.*;
 
 public final class OmnipotentialChests extends JavaPlugin {
 
-    Logger logger;
-
     @Getter
     private static OmnipotentialChests instance;
-
+    Logger logger;
     @Getter
     private ConfigsManager configsManager;
 
@@ -59,7 +56,7 @@ public final class OmnipotentialChests extends JavaPlugin {
         logger.info(ANSI_YELLOW + "     Y8a.    .a8P  " + ANSI_BRIGHT_YELLOW + "  Y8a.    .a8P  88        88" + ANSI_RESET);
         logger.info(ANSI_YELLOW + "       `Y8888Y'    " + ANSI_BRIGHT_YELLOW + "    `Y8888Y'    88        88" + ANSI_RESET);
         logger.info(" ");
-        logger.info("         OmnipotentialChests v"+ getPluginVersion());
+        logger.info("         OmnipotentialChests v" + getPluginVersion());
         logger.info("         Running on Spigot - " + getMinecraftVersion(Bukkit.getServer()));
         logger.info("         Made by DevieTeam");
         logger.info(" ");
@@ -78,7 +75,7 @@ public final class OmnipotentialChests extends JavaPlugin {
         logger.info(ANSI_YELLOW + "     Y8a.    .a8P  " + ANSI_BRIGHT_YELLOW + "  Y8a.    .a8P  88        88" + ANSI_RESET);
         logger.info(ANSI_YELLOW + "       `Y8888Y'    " + ANSI_BRIGHT_YELLOW + "    `Y8888Y'    88        88" + ANSI_RESET);
         logger.info(" ");
-        logger.info("         OmnipotentialChests v"+ getPluginVersion());
+        logger.info("         OmnipotentialChests v" + getPluginVersion());
         logger.info("         Running on Spigot - " + getMinecraftVersion(Bukkit.getServer()));
         logger.info("         Made by DevieTeam");
         logger.info(" ");
@@ -101,7 +98,7 @@ public final class OmnipotentialChests extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.logger =  Logger.getLogger("");
+        this.logger = Logger.getLogger("");
         enablingMessage();
         instance = this;
         createClasses();

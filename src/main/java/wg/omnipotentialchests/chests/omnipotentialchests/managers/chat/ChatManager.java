@@ -16,7 +16,7 @@ import java.util.UUID;
 public class ChatManager implements Listener {
     private final Map<UUID, PlayerChatAction> chatTasks = new HashMap<>();
 
-    public void init(){
+    public void init() {
         Bukkit.getServer().getPluginManager()
                 .registerEvents(this, OmnipotentialChests.getInstance());
     }

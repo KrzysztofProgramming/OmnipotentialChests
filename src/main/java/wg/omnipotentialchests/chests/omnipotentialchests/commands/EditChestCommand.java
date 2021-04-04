@@ -15,13 +15,13 @@ public class EditChestCommand extends ChestCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             sender.sendMessage(OmnipotentialChests.convertColors("&cOnly player can execute this command"));
             return true;
         }
         TreasureChest chest = this.getChestWithValidation(sender, command, label, args);
-        if(chest == null) return true;
-        Player player = (Player)sender;
+        if (chest == null) return true;
+        Player player = (Player) sender;
         new ChestCreatorGui(chest, null).open(player);
         return true;
     }

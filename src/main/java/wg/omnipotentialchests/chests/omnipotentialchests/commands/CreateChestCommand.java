@@ -11,10 +11,6 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.creators.ChestCr
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 public class CreateChestCommand implements CommandExecutor {
 
     private final ChestsManager chestsManager;
@@ -26,17 +22,17 @@ public class CreateChestCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             sender.sendMessage(OmnipotentialChests.convertColors("&cOnly player can execute this command"));
             return true;
         }
-        if(args.length == 0){
+        if (args.length == 0) {
             sender.sendMessage(CommandsManager.getDescription(label, command));
             return true;
         }
         String chestName = String.join(" ", args);
         TreasureChest chest = chestsManager.getTreasureChest(chestName);
-        if(chest!=null){
+        if (chest != null) {
             sender.sendMessage(OmnipotentialChests.convertColors("&cChest with that name already exists"));
             return true;
         }

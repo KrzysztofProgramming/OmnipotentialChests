@@ -20,7 +20,7 @@ public class ListenersManager {
         this.chatManager.init();
     }
 
-    public void disable(){
+    public void disable() {
         this.chestsManager.disable();
     }
 }

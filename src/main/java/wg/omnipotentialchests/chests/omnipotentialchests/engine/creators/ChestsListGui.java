@@ -2,10 +2,7 @@ package wg.omnipotentialchests.chests.omnipotentialchests.engine.creators;
 
 import ad.guis.ultimateguis.engine.basics.BasicGui;
 import ad.guis.ultimateguis.engine.basics.ListGui;
-import ad.guis.ultimateguis.engine.interfaces.BasicAction;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.ChestsManager;
@@ -24,11 +21,11 @@ public class ChestsListGui extends ListGui<TreasureChest> {
         this.setRightAction(this::rightClickAction);
     }
 
-    public void leftClickAction(TreasureChest chest){
+    public void leftClickAction(TreasureChest chest) {
         BasicGui.returnItemToPlayer(this.getLastClicker(), chest.getChestItem(), chest.getKeyItem());
     }
 
-    public void rightClickAction(TreasureChest chest){
+    public void rightClickAction(TreasureChest chest) {
         new ChestCreatorGui(chest, this).open(this.getLastClicker());
     }
 

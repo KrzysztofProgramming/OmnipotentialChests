@@ -10,14 +10,6 @@ import java.util.stream.Collectors;
 
 public class CommandsManager {
 
-    public void init() {
-        new OmniChestsCommand(OmnipotentialChests.getInstance().getCommand("omnichests"));
-        new GetChestCommand(OmnipotentialChests.getInstance().getCommand("getchest"));
-        new EditChestCommand(OmnipotentialChests.getInstance().getCommand("editchest"));
-        new CreateChestCommand(OmnipotentialChests.getInstance().getCommand("createchest"));
-        new RemoveChestCommand(OmnipotentialChests.getInstance().getCommand("removechest"));
-    }
-
     public static List<String> mergeTabCompleter(List<String> currentTabCompleter, String arg) {
         final String lowArg = arg.toLowerCase();
         return currentTabCompleter.stream().filter(s -> s.toLowerCase().indexOf(lowArg) == 0).collect(Collectors.toList());
@@ -27,5 +19,13 @@ public class CommandsManager {
         String[] strings = command.getUsage().split(" ", 2);
         String usage = strings.length < 2 ? "" : " " + command.getUsage().split(" ", 2)[1];
         return ChatColor.GREEN + "" + ChatColor.BOLD + "Use" + ChatColor.GRAY + " => " + ChatColor.GREEN + "" + ChatColor.BOLD + "/" + label + ChatColor.GRAY + usage;
+    }
+
+    public void init() {
+        new OmniChestsCommand(OmnipotentialChests.getInstance().getCommand("omnichests"));
+        new GetChestCommand(OmnipotentialChests.getInstance().getCommand("getchest"));
+        new EditChestCommand(OmnipotentialChests.getInstance().getCommand("editchest"));
+        new CreateChestCommand(OmnipotentialChests.getInstance().getCommand("createchest"));
+        new RemoveChestCommand(OmnipotentialChests.getInstance().getCommand("removechest"));
     }
 }

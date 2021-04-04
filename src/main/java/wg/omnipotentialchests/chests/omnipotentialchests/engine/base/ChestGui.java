@@ -4,7 +4,6 @@ import ad.guis.ultimateguis.Colors;
 import ad.guis.ultimateguis.engine.basics.BasicGui;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
@@ -42,7 +41,7 @@ public class ChestGui extends BasicGui {
         this(treasureChest, null);
     }
 
-    public boolean isDuringSpinning(){
+    public boolean isDuringSpinning() {
         return currentTotalSpins > 0;
     }
 
@@ -116,7 +115,7 @@ public class ChestGui extends BasicGui {
         Bukkit.getScheduler().scheduleSyncDelayedTask(OmnipotentialChests.getInstance(), new Runnable() {
             @Override
             public void run() {
-                if(currentTotalSpins <=0 ) return;
+                if (currentTotalSpins <= 0) return;
 
                 shiftList();
                 fillTreasureItems(shiftedItemsList);
@@ -137,20 +136,20 @@ public class ChestGui extends BasicGui {
 
     @Override
     public void onClose() {
-        if(!this.isDuringSpinning()) return;
+        if (!this.isDuringSpinning()) return;
         this.skipToReward();
         this.open(this.getLastViewer());
         callFinishedEvent();
         super.onClose();
     }
 
-    private void callFinishedEvent(){
+    private void callFinishedEvent() {
         this.currentTotalSpins = 0;
         Bukkit.getPluginManager().callEvent(new PlayerFinishedSpinningEvent(
                 ChestGui.this.getLastViewer(), ChestGui.this, currentReward));
     }
 
-    void setRewardBackground(){
+    void setRewardBackground() {
         ItemStack backgroundGreen = BasicGui.createBackground(Colors.GREEN);
         ItemStack backgroundOrange = BasicGui.createBackground(Colors.ORANGE);
         this.gui.clear();
@@ -161,7 +160,7 @@ public class ChestGui extends BasicGui {
         this.autoFill(backgroundGreen);
     }
 
-    private void skipToReward(){
+    private void skipToReward() {
         this.currentShift = this.currentTotalSpins;
         this.shiftList();
         this.fillTreasureItems(this.shiftedItemsList);

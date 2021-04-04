@@ -10,7 +10,6 @@ import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class GetChestCommand extends ChestCommand {
@@ -21,25 +20,24 @@ public class GetChestCommand extends ChestCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             sender.sendMessage(OmnipotentialChests.convertColors("&cOnly player can execute this command"));
             return true;
         }
-        if(args.length < 2){
+        if (args.length < 2) {
             sender.sendMessage(CommandsManager.getDescription(label, command));
             return true;
         }
         TreasureChest chest = this.getChestWithValidation(sender, command, label,
                 Arrays.copyOfRange(args, 0, args.length - 1));
 
-        if(chest == null) return true;
-        Player player = (Player)sender;
+        if (chest == null) return true;
+        Player player = (Player) sender;
         int count;
-        try{
+        try {
             count = Integer.parseInt(args[args.length - 1]);
-            if(count <=0 ) count = 1;
-        }
-        catch (NumberFormatException e){
+            if (count <= 0) count = 1;
+        } catch (NumberFormatException e) {
             player.sendMessage(OmnipotentialChests.convertColors("&cWrong number format"));
             return true;
         }

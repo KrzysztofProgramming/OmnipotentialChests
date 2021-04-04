@@ -12,8 +12,8 @@ public class PercentManager {
     private final static String PERCENT_MODIFIER = "涼>®r";
     private final static String INV_PERCENT_MODIFIER = LoreManager.toInvisibleLore(PERCENT_MODIFIER);
 
-    public static void removePercentFromLore(ItemStack item){
-        if(item == null || item.getItemMeta() == null) return;
+    public static void removePercentFromLore(ItemStack item) {
+        if (item == null || item.getItemMeta() == null) return;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         lore.removeIf(line -> line.startsWith(INV_PERCENT_MODIFIER));
@@ -24,14 +24,14 @@ public class PercentManager {
     }
 
 
-    public static void showPercentValue(ItemStack item, double chance){
-        if(item == null || item.getItemMeta() == null) return;
+    public static void showPercentValue(ItemStack item, double chance) {
+        if (item == null || item.getItemMeta() == null) return;
         ItemMeta meta = item.getItemMeta();
-        if(meta.hasLore()){
+        if (meta.hasLore()) {
             List<String> lore = meta.getLore();
             int index = getPercentLineIndex(lore);
 
-            if(index < 0){
+            if (index < 0) {
                 addPercentToLore(item, chance);
                 return;
             }
@@ -46,11 +46,11 @@ public class PercentManager {
         addPercentToLore(item, chance);
     }
 
-    public static void addPercentToLore(ItemStack item, double chance){
-        if(item == null || item.getItemMeta() == null) return;
+    public static void addPercentToLore(ItemStack item, double chance) {
+        if (item == null || item.getItemMeta() == null) return;
         ItemMeta meta = item.getItemMeta();
         List<String> lore;
-        if(meta.hasLore())
+        if (meta.hasLore())
             lore = meta.getLore();
         else
             lore = new ArrayList<>();
@@ -61,15 +61,15 @@ public class PercentManager {
     }
 
 
-    public static ItemStack removePercentValueAndCopy(ItemStack item){
+    public static ItemStack removePercentValueAndCopy(ItemStack item) {
         ItemStack copy = item.clone();
         removePercentFromLore(copy);
         return copy;
     }
 
-    private static int getPercentLineIndex(List<String> lore){
-        for(int i=0; i<lore.size(); i++){
-            if(lore.get(i).startsWith(INV_PERCENT_MODIFIER))
+    private static int getPercentLineIndex(List<String> lore) {
+        for (int i = 0; i < lore.size(); i++) {
+            if (lore.get(i).startsWith(INV_PERCENT_MODIFIER))
                 return i;
         }
         return -1;

@@ -5,7 +5,7 @@ import lombok.Getter;
 public class ConfigsManager {
 
     @Getter
-    private JSONGenerator JSONGenerator;
+    private final JSONGenerator JSONGenerator;
 
     public ConfigsManager() {
         this.JSONGenerator = new JSONGenerator();

@@ -1,7 +1,6 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.commands;
 
 import org.bukkit.command.*;
-import org.bukkit.entity.Player;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.ChestsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
@@ -9,25 +8,24 @@ import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManage
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class ChestCommand implements CommandExecutor, TabCompleter {
 
     protected final ChestsManager chestsManager;
 
-    public ChestCommand(PluginCommand command){
+    public ChestCommand(PluginCommand command) {
         command.setTabCompleter(this);
         command.setExecutor(this);
         this.chestsManager = OmnipotentialChests.getInstance().getListenersManager().getChestsManager();
     }
 
-    protected TreasureChest getChestWithValidation(CommandSender sender, Command command, String label, String[] args){
-        if(args.length == 0){
+    protected TreasureChest getChestWithValidation(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 0) {
             sender.sendMessage(CommandsManager.getDescription(label, command));
             return null;
         }
         TreasureChest chest = chestsManager.getTreasureChest(String.join(" ", args));
-        if(chest == null){
+        if (chest == null) {
             sender.sendMessage(OmnipotentialChests.convertColors("&cThere's no chest with that name"));
             return null;
         }
