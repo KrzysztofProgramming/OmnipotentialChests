@@ -110,7 +110,7 @@ public class ChestCreatorGui extends ModifiableGui {
         this.allowClosed = true;
         new ConfirmGui(OmnipotentialChests.convertColors("&dRemove this chest?"), player -> {
             chestsManager.removeChest(chestName);
-            player.sendMessage("&aSuccessfully removed chest!");
+            player.sendMessage(OmnipotentialChests.convertColors("&aSuccessfully removed chest!"));
             backOrClose(player);
         }, this::open, true).open(p);
     }

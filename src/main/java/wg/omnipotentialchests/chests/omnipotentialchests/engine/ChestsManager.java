@@ -52,7 +52,7 @@ public class ChestsManager implements Listener {
     }
 
     public void removeChest(String treasureChestName){
-        this.treasureChestMap.remove(treasureChestName);
+        this.treasureChestMap.remove(BasicGui.clearColors(treasureChestName));
         this.removeFromDatabase(treasureChestName);
     }
 
