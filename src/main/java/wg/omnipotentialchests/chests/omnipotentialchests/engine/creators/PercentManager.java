@@ -13,7 +13,7 @@ public class PercentManager {
     private final static String INV_PERCENT_MODIFIER = LoreManager.toInvisibleLore(PERCENT_MODIFIER);
 
     public static void removePercentFromLore(ItemStack item) {
-        if (item == null || item.getItemMeta() == null) return;
+        if (item == null || item.getItemMeta() == null || !item.getItemMeta().hasLore()) return;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
         lore.removeIf(line -> line.startsWith(INV_PERCENT_MODIFIER));

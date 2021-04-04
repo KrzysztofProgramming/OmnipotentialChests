@@ -268,7 +268,7 @@ public class ChestCreatorGui extends ModifiableGui {
             return new TreasureItem(PercentManager.removePercentValueAndCopy(item), chance);
         } catch (NullPointerException ignore) {
         }
-        return null;
+        return new TreasureItem(item, 0);
     }
 
     @Override
