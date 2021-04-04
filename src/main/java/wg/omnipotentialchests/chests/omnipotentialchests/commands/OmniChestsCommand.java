@@ -1,15 +1,17 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.commands;
 
+import ad.guis.ultimateguis.engine.basics.BasicGui;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.ChestsManager;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.LoreManager;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.creators.ChestCreatorGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.creators.ChestsListGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 
 public class OmniChestsCommand implements CommandExecutor {
 
@@ -29,11 +31,9 @@ public class OmniChestsCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player)sender;
-        ItemStack item = player.getInventory().getItemInMainHand().clone();
-        LoreManager.applyEnchants(item, "siema", "ziomuś", "kupa", "kozak");
-        LoreManager.removeEnchant(item, "siema");
-        player.getInventory().addItem(item);
-        Bukkit.broadcastMessage(String.valueOf(LoreManager.getEnchants(item)));
+        ChestsListGui gui = new ChestsListGui(null);
+        gui.open(player);
+
 
 
 

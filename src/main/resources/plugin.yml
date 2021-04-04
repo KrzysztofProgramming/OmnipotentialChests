@@ -10,3 +10,19 @@ commands:
     aliases:
       - chests
       - omchests
+  getchest:
+    usage: getchest [name] <count>
+    description: get typed chest and key for it
+    permission: omnipotentialchests.commands.getchest
+  editchest:
+    usage: editchest [name]
+    description: edit typed chest
+    permission: omnipotentialchests.commands.editchest
+  createchest:
+    usage: createchest [name]
+    description: create new chest with given name
+    permission: omnipotentialchests.commands.createchest
+  removechest:
+    usage: removechest [name]
+    description: remove existing chest
+    permission: omnipotentialchests.commands.removechest

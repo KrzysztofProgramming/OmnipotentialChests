@@ -17,18 +17,22 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class TreasureChest {
 
     @Getter
-    @Setter
     @Expose
     private String name = "";
     @Expose
     private List<TreasureItem> treasureItems = new ArrayList<>();
 
     public TreasureChest(String name, List<TreasureItem> treasureItems){
-        this.name = name;
+        this.setName(name);
         this.setTreasureItems(treasureItems);
+    }
+
+    public void setName(String name){
+        this.name = name.replaceAll(" ", "_");
     }
 
     @SneakyThrows
@@ -50,7 +54,7 @@ public class TreasureChest {
         return new KeyItem(this.getName());
     }
 
-    public ChestItem getTreasureItem(){
+    public ChestItem getChestItem(){
         return new ChestItem(this.getName());
     }
 

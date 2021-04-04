@@ -1,5 +1,6 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine;
 
+import ad.guis.ultimateguis.engine.basics.BasicGui;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -10,11 +11,14 @@ import java.util.List;
 public class LoreManager {
     public static final char COLOR_CHAR= '§';
     public static final String SEPARATOR = "S萨®";
+    public static final String INV_SEPARATOR = toInvisibleLore(SEPARATOR);
     public static final String PREFIX = "*®埃A/©";
+    public static final String INV_PREFIX = toInvisibleLore(PREFIX);
 
 
     public static void applyEnchant(ItemStack item, String enchant){
         if(hasEnchant(item, enchant)) return;
+        enchant = BasicGui.clearColors(enchant);
 
         ItemMeta meta = item.getItemMeta();
         if(meta.hasLore()){
@@ -35,24 +39,11 @@ public class LoreManager {
         item.setItemMeta(meta);
     }
 
-    public static ItemStack applyEnchantClone(ItemStack item, String enchant){
-        ItemStack copy = item.clone();
-        applyEnchant(copy, enchant);
-        return copy;
-    }
-
     public static void applyEnchants(ItemStack item, String ...enchants){
         for(String enchant: enchants){
             applyEnchant(item, enchant);
         }
     }
-
-    public static ItemStack applyEnchantsClone(ItemStack item, String ...enchants){
-        ItemStack copy = item.clone();
-        applyEnchants(copy, enchants);
-        return copy;
-    }
-
     public static void clearEnchants(ItemStack item){
         ItemMeta meta = item.getItemMeta();
         if(!meta.hasLore()) return;
@@ -66,24 +57,20 @@ public class LoreManager {
         item.setItemMeta(meta);
     }
 
-    public static ItemStack clearEnchantsClone(ItemStack item){
-        ItemStack copy = item.clone();
-        clearEnchants(copy);
-        return copy;
-    }
-
     public static void removeEnchant(ItemStack item, String enchant){
         ItemMeta meta = item.getItemMeta();
         if(!meta.hasLore()) return;
+
+        enchant = BasicGui.clearColors(enchant);
 
         List<String> loreList = meta.getLore();
         int index = enchantsLineNumber(loreList);
         if(index < 0) return;
 
         loreList.set(index, loreList.get(index)
-                .replaceAll(toInvisibleLore(enchant + SEPARATOR), ""));
+                .replaceAll(toInvisibleLore(enchant) + INV_SEPARATOR, ""));
 
-        if(loreList.get(index).equals(toInvisibleLore(PREFIX))) {
+        if(loreList.get(index).equals(INV_PREFIX)) {
             loreList.remove(index);
         }
 
@@ -91,11 +78,6 @@ public class LoreManager {
         item.setItemMeta(meta);
     }
 
-    public static ItemStack removeEnchantClone(ItemStack item, String enchant){
-        ItemStack copy = item.clone();
-        removeEnchant(copy, enchant);
-        return copy;
-    }
 
     public static List<String> getEnchants(ItemStack item){
         List<String> enchantsList = new ArrayList<>();
@@ -111,15 +93,16 @@ public class LoreManager {
     }
 
     public static boolean hasEnchant(ItemStack item, String enchant){
+        enchant = BasicGui.clearColors(enchant);
         return getEnchants(item).contains(enchant);
     }
 
     private static String createNewEnchant(String newEnchant){
-        return toInvisibleLore(PREFIX + newEnchant + SEPARATOR);
+        return INV_PREFIX + toInvisibleLore(newEnchant) + INV_SEPARATOR;
     }
 
     private static String addEnchant(String loreLine, String newEnchant){
-        return loreLine + toInvisibleLore(newEnchant + SEPARATOR);
+        return loreLine + toInvisibleLore(newEnchant) + INV_SEPARATOR;
     }
 
     public static String toInvisibleLore(String lore){
@@ -132,7 +115,7 @@ public class LoreManager {
 
     private static int enchantsLineNumber(List<String> lore){
         for(int i=0; i<lore.size(); i++){
-            if(lore.get(i).startsWith(toInvisibleLore(PREFIX)))
+            if(lore.get(i).startsWith(INV_PREFIX))
                 return i;
         }
         return -1;
