@@ -87,7 +87,7 @@
             <artifactId>ultimateguis</artifactId>
             <version>RELEASE</version>
             <scope>system</scope>
-            <systemPath>${basedir}/../UltimateGuis.jar</systemPath>
+            <systemPath>${basedir}/UltimateGuis.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
