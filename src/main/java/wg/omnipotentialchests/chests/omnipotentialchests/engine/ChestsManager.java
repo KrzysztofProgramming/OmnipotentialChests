@@ -1,6 +1,5 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine;
 
-import ad.guis.ultimateguis.UltimateGuis;
 import ad.guis.ultimateguis.engine.basics.BasicGui;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

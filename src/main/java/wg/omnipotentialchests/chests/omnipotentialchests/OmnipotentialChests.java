@@ -96,17 +96,17 @@ public final class OmnipotentialChests extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        enablingMessage();
         instance = this;
         createClasses();
         initClasses();
+        enablingMessage();
     }
 
     @Override
     public void onDisable() {
-        disablingMessage();
         this.getListenersManager().disable();
         if (instance == this)
             instance = null;
+        disablingMessage();
     }
 }
