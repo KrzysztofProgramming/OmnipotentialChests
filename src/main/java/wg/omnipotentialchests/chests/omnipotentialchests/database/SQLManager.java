@@ -1,0 +1,17 @@
+package wg.omnipotentialchests.chests.omnipotentialchests.database;
+import lombok.Getter;
+
+public class SQLManager {
+
+    @Getter
+    private final Database database;
+
+    public SQLManager() {
+        this.database = new Database();
+    }
+
+    public void init() {
+        this.database.init();
+        this.database.connect();
+    }
+}

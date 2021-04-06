@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-import wg.omnipotentialchests.chests.omnipotentialchests.configs.ConfigsManager;
+import wg.omnipotentialchests.chests.omnipotentialchests.database.SQLManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.ListenersManager;
 
@@ -18,10 +18,12 @@ import static ad.guis.ultimateguis.ANSIColors.*;
 public final class OmnipotentialChests extends JavaPlugin {
 
     @Getter
-    private static OmnipotentialChests instance;
-    Logger logger;
+    private SQLManager sqlManager;
+    public final Logger logger =  Logger.getLogger("");
     @Getter
-    private ConfigsManager configsManager;
+    private static OmnipotentialChests instance;
+//    @Getter
+//    private ConfigsManager configsManager;
 
     @Getter
     private CommandsManager commandsManager;
@@ -85,20 +87,21 @@ public final class OmnipotentialChests extends JavaPlugin {
     }
 
     public void createClasses() {
-        this.configsManager = new ConfigsManager();
+//        this.configsManager = new ConfigsManager();
+        this.sqlManager = new SQLManager();
         this.listenersManager = new ListenersManager();
         this.commandsManager = new CommandsManager();
     }
 
     public void initClasses() {
-        this.configsManager.init();
+//        this.configsManager.init();
+        this.sqlManager.init();
         this.listenersManager.init();
         this.commandsManager.init();
     }
 
     @Override
     public void onEnable() {
-        this.logger = Logger.getLogger("");
         enablingMessage();
         instance = this;
         createClasses();

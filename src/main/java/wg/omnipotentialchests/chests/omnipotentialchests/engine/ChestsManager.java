@@ -1,5 +1,6 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine;
 
+import ad.guis.ultimateguis.UltimateGuis;
 import ad.guis.ultimateguis.engine.basics.BasicGui;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -10,7 +11,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
-import wg.omnipotentialchests.chests.omnipotentialchests.configs.JSONGenerator;
+import wg.omnipotentialchests.chests.omnipotentialchests.database.Database;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.base.ChestGui;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.ChestItem;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.KeyItem;
@@ -23,14 +24,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ChestsManager implements Listener {
-    private final static String fileName = "chests";
-    private JSONGenerator jsonGenerator;
+    private Database database;
     private Map<String, TreasureChest> treasureChestMap = new HashMap<>();
 
     public void init() {
-        jsonGenerator = OmnipotentialChests.getInstance().getConfigsManager().getJSONGenerator();
+        database = OmnipotentialChests.getInstance().getSqlManager().getDatabase();
         this.setChest(TreasureChest.getExample());
-        treasureChestMap = jsonGenerator.getAllChests(fileName).stream().collect(Collectors.toMap(
+        treasureChestMap = database.getAllChests().stream().collect(Collectors.toMap(
                 treasureChest -> BasicGui.clearColors(treasureChest.getName()), treasureChest -> treasureChest
         ));
         Bukkit.getPluginManager().registerEvents(this, OmnipotentialChests.getInstance());
@@ -59,13 +59,13 @@ public class ChestsManager implements Listener {
     }
 
     private void saveToDatabase(TreasureChest chest) {
-        jsonGenerator.editTreasureChest(fileName, chest.getName(), chest);
+        database.deleteChest(chest.getName());
+        database.insertNewChest(chest.getName(), chest);
     }
 
     private void removeFromDatabase(String chestName) {
-        jsonGenerator.deleteChest(chestName, fileName);
+        database.deleteChest(chestName);
     }
-
 
     public void disable() {
     }
