@@ -22,12 +22,8 @@ public final class OmnipotentialChests extends JavaPlugin {
     public final Logger logger =  Logger.getLogger("");
     @Getter
     private static OmnipotentialChests instance;
-//    @Getter
-//    private ConfigsManager configsManager;
-
     @Getter
     private CommandsManager commandsManager;
-
     @Getter
     private ListenersManager listenersManager;
 
@@ -87,14 +83,12 @@ public final class OmnipotentialChests extends JavaPlugin {
     }
 
     public void createClasses() {
-//        this.configsManager = new ConfigsManager();
         this.sqlManager = new SQLManager();
         this.listenersManager = new ListenersManager();
         this.commandsManager = new CommandsManager();
     }
 
     public void initClasses() {
-//        this.configsManager.init();
         this.sqlManager.init();
         this.listenersManager.init();
         this.commandsManager.init();
