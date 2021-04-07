@@ -10,9 +10,9 @@ import java.util.List;
 
 public class LoreManager {
     public static final char COLOR_CHAR = '§';
-    public static final String SEPARATOR = "S萨®";
+    public static final String SEPARATOR = "ł作ツ";
     public static final String INV_SEPARATOR = toInvisibleLore(SEPARATOR);
-    public static final String PREFIX = "*®埃A/©";
+    public static final String PREFIX = "にź走ń";
     public static final String INV_PREFIX = toInvisibleLore(PREFIX);
 
 
@@ -108,7 +108,12 @@ public class LoreManager {
     public static String toInvisibleLore(String lore) {
         StringBuilder builder = new StringBuilder();
         for (char a : lore.toCharArray()) {
-            builder.append(COLOR_CHAR).append(a);
+            if(a==' '){
+             builder.append(a);
+            }
+            else {
+                builder.append(COLOR_CHAR).append(a);
+            }
         }
         return builder.toString();
     }

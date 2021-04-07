@@ -28,7 +28,7 @@ public class ChestsManager implements Listener {
 
     public void init() {
         database = OmnipotentialChests.getInstance().getSqlManager().getDatabase();
-        this.setChest(TreasureChest.getExample());
+        //this.setChest(TreasureChest.getExample());
         treasureChestMap = database.getAllChests().stream().collect(Collectors.toMap(
                 treasureChest -> BasicGui.clearColors(treasureChest.getName()), treasureChest -> treasureChest
         ));
@@ -53,8 +53,9 @@ public class ChestsManager implements Listener {
     }
 
     public void removeChest(String treasureChestName) {
-        this.treasureChestMap.remove(BasicGui.clearColors(treasureChestName));
-        this.removeFromDatabase(treasureChestName);
+        TreasureChest chest = this.treasureChestMap.remove(BasicGui.clearColors(treasureChestName));;
+        if(chest == null) return;
+        this.removeFromDatabase(chest.getName());
     }
 
     private void saveToDatabase(TreasureChest chest) {
@@ -118,5 +119,10 @@ public class ChestsManager implements Listener {
                     "&eSorry, but this chests has been removed"));
         }
     }
+
+//    @EventHandler
+//    private void loreDebug(InventoryClickEvent e){
+//        System.out.println(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getLore());
+//    }
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class KeyItem extends ItemStack {
-    public static final String KEY_LORE_PHRASE = "K洛®";
+    public static final String KEY_LORE_PHRASE = "れąहै";
 
     public KeyItem(String chestName) {
         super(Material.TRIPWIRE_HOOK);

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PercentManager {
-    private final static String PERCENT_MODIFIER = "涼>®r";
+    private final static String PERCENT_MODIFIER = "すó為'";
     private final static String INV_PERCENT_MODIFIER = LoreManager.toInvisibleLore(PERCENT_MODIFIER);
 
     public static void removePercentFromLore(ItemStack item) {

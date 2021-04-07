@@ -7,7 +7,7 @@ import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.LoreManager;
 
 public class ChestItem extends ItemStack {
-    public static final String CHEST_LORE_PHRASE = "C萨©";
+    public static final String CHEST_LORE_PHRASE = "か米ę";
 
     public ChestItem(String chestName) {
         super(Material.CHEST);
