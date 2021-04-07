@@ -1,3 +1,26 @@
+# <===============================[OmnipotentialChests]===============================>
+#
+#              OOOOOOOOO                  CCCCCCCCCCCCCHHHHHHHHH     HHHHHHHHH
+#            OO:::::::::OO             CCC::::::::::::CH:::::::H     H:::::::H
+#          OO:::::::::::::OO         CC:::::::::::::::CH:::::::H     H:::::::H
+#         O:::::::OOO:::::::O       C:::::CCCCCCCC::::CHH::::::H     H::::::HH
+#         O::::::O   O::::::O      C:::::C       CCCCCC  H:::::H     H:::::H
+#         O:::::O     O:::::O     C:::::C                H:::::H     H:::::H
+#         O:::::O     O:::::O     C:::::C                H::::::HHHHH::::::H
+#         O:::::O     O:::::O     C:::::C                H:::::::::::::::::H
+#         O:::::O     O:::::O     C:::::C                H:::::::::::::::::H
+#         O:::::O     O:::::O     C:::::C                H::::::HHHHH::::::H
+#         O:::::O     O:::::O     C:::::C                H:::::H     H:::::H
+#         O::::::O   O::::::O      C:::::C       CCCCCC  H:::::H     H:::::H
+#         O:::::::OOO:::::::O       C:::::CCCCCCCC::::CHH::::::H     H::::::HH
+#          OO:::::::::::::OO         CC:::::::::::::::CH:::::::H     H:::::::H
+#            OO:::::::::OO             CCC::::::::::::CH:::::::H     H:::::::H
+#              OOOOOOOOO                  CCCCCCCCCCCCCHHHHHHHHH     HHHHHHHHH
+#
+# <===============================[OmnipotentialChests]===============================>
+# Below you can configure your spin animation
+# - minimum value of minimumItemCount = 9
 Configuration:
+  # The number of elements that will move
   minimumItemCount: 50
   minimumSpinCount: 20
