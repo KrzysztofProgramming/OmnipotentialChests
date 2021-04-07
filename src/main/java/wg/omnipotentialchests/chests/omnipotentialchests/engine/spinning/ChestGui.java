@@ -1,7 +1,5 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning;
 
-import ad.guis.ultimateguis.Colors;
-import ad.guis.ultimateguis.engine.basics.BasicGui;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -12,6 +10,8 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerFin
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerStartSpinningEvent;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureItem;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.Colors;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.BasicGui;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,13 +21,13 @@ import java.util.Random;
 
 public class ChestGui extends BasicGui {
 
-    public static int ESTIMATED_ITEM_COUNT;
-    public static int MINIMUM_SPIN_POSITION;
+    public final int ESTIMATED_ITEM_COUNT;
+    public final int MINIMUM_SPIN_POSITION;
     private final Random randomGenerator = new Random();
     @Getter
     private final TreasureChest treasureChest;
-    private final List<TreasureItem> expandedItemsList = new ArrayList<>(ESTIMATED_ITEM_COUNT);
-    private List<TreasureItem> shiftedItemsList = new ArrayList<>(ESTIMATED_ITEM_COUNT);
+    private final List<TreasureItem> expandedItemsList;
+    private List<TreasureItem> shiftedItemsList;
     private int currentShift = 0;
     private int currentTotalSpins = 0;
     public ChestConfiguration chestConfiguration;
@@ -36,8 +36,12 @@ public class ChestGui extends BasicGui {
     public ChestGui(TreasureChest treasureChest, BasicGui previousGui) {
         super(4, treasureChest.getName(), previousGui);
         this.chestConfiguration = OmnipotentialChests.getInstance().getConfigsManager().getChestConfiguration();
+
         ESTIMATED_ITEM_COUNT = this.chestConfiguration.getMinimumItemCount();
         MINIMUM_SPIN_POSITION = this.chestConfiguration.getMinimumSpinCount();
+        expandedItemsList = new ArrayList<>(ESTIMATED_ITEM_COUNT);
+        shiftedItemsList = new ArrayList<>(ESTIMATED_ITEM_COUNT);
+
         this.treasureChest = treasureChest;
         this.init();
     }
@@ -67,7 +71,7 @@ public class ChestGui extends BasicGui {
 
     private void initModifiedList() {
         for (TreasureItem item : treasureChest.getTreasureItems()) {
-            int itemCount = atLeastOne(ESTIMATED_ITEM_COUNT * item.getChance() / 100);
+            int itemCount = atLeastOne(Math.round(ESTIMATED_ITEM_COUNT * item.getChance() / 100));
             this.insertNTimes(item, itemCount);
         }
         Collections.shuffle(this.expandedItemsList);

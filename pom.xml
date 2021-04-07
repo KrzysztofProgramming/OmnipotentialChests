@@ -73,13 +73,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>ad.guis</groupId>
-            <artifactId>ultimateguis</artifactId>
-            <version>RELEASE</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/UltimateGuis.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>

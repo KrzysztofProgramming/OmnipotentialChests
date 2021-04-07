@@ -1,10 +1,5 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine.creators;
 
-import ad.guis.ultimateguis.Colors;
-import ad.guis.ultimateguis.engine.basics.BasicGui;
-import ad.guis.ultimateguis.engine.basics.ModifiableGui;
-import ad.guis.ultimateguis.engine.interfaces.Action;
-import ad.guis.ultimateguis.examples.ConfirmGui;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -16,6 +11,11 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.ChestsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureItem;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.chat.ChatManager;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.Colors;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.BasicGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.ModifiableGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.examples.ConfirmGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.interfaces.Action;
 
 import java.util.*;
 import java.util.stream.Collectors;

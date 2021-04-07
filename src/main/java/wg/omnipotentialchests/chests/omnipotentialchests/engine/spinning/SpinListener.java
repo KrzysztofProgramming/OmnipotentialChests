@@ -1,6 +1,5 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning;
 
-import ad.guis.ultimateguis.engine.basics.BasicGui;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -9,6 +8,7 @@ import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.creators.ChestCreatorGui;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerFinishedSpinningEvent;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerStartSpinningEvent;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.BasicGui;
 
 public class SpinListener implements Listener {
 

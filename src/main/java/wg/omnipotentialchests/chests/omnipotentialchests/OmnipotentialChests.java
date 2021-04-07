@@ -13,7 +13,8 @@ import wg.omnipotentialchests.chests.omnipotentialchests.managers.ListenersManag
 
 import java.util.logging.Logger;
 
-import static ad.guis.ultimateguis.ANSIColors.*;
+import static wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.ANSIColors.*;
+
 
 
 public final class OmnipotentialChests extends JavaPlugin {

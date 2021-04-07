@@ -3,7 +3,6 @@ version: ${project.version}
 main: wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests
 description: Plugin that allows you to creating chests with random rewards
 authors: [ Devie, DJKK12 ]
-depend: [ UltimateGuis ]
 commands:
   omnichests:
     usage: /omnichests

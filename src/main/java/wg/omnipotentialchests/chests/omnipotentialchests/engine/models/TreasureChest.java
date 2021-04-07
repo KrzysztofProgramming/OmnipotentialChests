@@ -1,12 +1,12 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine.models;
 
-import ad.guis.ultimateguis.engine.basics.BasicGui;
 import com.google.gson.annotations.Expose;
 import lombok.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.ChestItem;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.KeyItem;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.BasicGui;
 
 import java.util.*;
 import java.util.function.Supplier;

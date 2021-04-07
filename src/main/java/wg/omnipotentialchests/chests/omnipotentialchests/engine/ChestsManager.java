@@ -1,6 +1,5 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine;
 
-import ad.guis.ultimateguis.engine.basics.BasicGui;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,10 +10,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.database.Database;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning.ChestGui;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.ChestItem;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.KeyItem;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning.ChestGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.BasicGui;
 
 import java.util.Collection;
 import java.util.HashMap;

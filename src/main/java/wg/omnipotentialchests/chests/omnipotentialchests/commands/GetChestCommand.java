@@ -1,6 +1,5 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.commands;
 
-import ad.guis.ultimateguis.engine.basics.BasicGui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
@@ -9,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
+import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.BasicGui;
 
 import java.util.Arrays;
 

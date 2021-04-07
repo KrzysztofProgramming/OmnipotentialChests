@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static ad.guis.ultimateguis.ANSIColors.*;
+import static wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.ANSIColors.*;
 
 public class CustomSQLInterface {
 
