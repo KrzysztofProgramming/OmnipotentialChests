@@ -16,7 +16,7 @@ public class RemoveChestCommand extends ChestCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         TreasureChest chest = this.getChestWithValidation(sender, command, label, args);
         if (chest == null) return true;
-        this.chestsManager.removeChest(args[0]);
+        this.chestsManager.removeChest(OmnipotentialChests.convertColors(args[0]));
         sender.sendMessage(OmnipotentialChests.convertColors("&aSuccessfully removed chest"));
         return true;
     }

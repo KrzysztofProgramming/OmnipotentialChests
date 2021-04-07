@@ -30,13 +30,13 @@ public class CreateChestCommand implements CommandExecutor {
             sender.sendMessage(CommandsManager.getDescription(label, command));
             return true;
         }
-        String chestName = String.join(" ", args);
+        String chestName = OmnipotentialChests.convertColors(String.join(" ", args));
         TreasureChest chest = chestsManager.getTreasureChest(chestName);
         if (chest != null) {
             sender.sendMessage(OmnipotentialChests.convertColors("&cChest with that name already exists"));
             return true;
         }
-        new ChestCreatorGui(OmnipotentialChests.convertColors(chestName), null).open((Player) sender);
+        new ChestCreatorGui(chestName, null).open((Player) sender);
         return true;
     }
 }
