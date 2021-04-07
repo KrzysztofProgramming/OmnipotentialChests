@@ -120,25 +120,20 @@ public class ChestCreatorGui extends ModifiableGui {
     private void onCopyChestClick(Player p) {
         this.allowClosed = true;
         p.closeInventory();
-        p.sendMessage(OmnipotentialChests.convertColors("&aEnter new chest's name, &r&l"
-                + CANCEL_PHRASE + "&r&a to cancel"));
+        p.sendMessage(OmnipotentialChests.convertColors("&aEnter new chest's name, &r"
+                + CANCEL_PHRASE + "&a to cancel"));
         this.chatManager.setTask(p.getUniqueId(), this::playerChangeNameAction);
     }
 
     private boolean playerChangeNameAction(String message, Player player) {
         this.allowClosed = false;
-        if (message.contains(" ")) {
-            player.sendMessage(OmnipotentialChests.convertColors("&cName can't contains" +
-                    " spaces (use: \"&r&l_&r&c\" instead), try again or cancel with: &r" + CANCEL_PHRASE));
-            return false;
-        }
         TreasureChest chest = this.chestsManager.getTreasureChest(message);
         if (chest != null && !chestName.equals(message)) {
             player.sendMessage(OmnipotentialChests.convertColors("&cChest with that name already exists"));
             return false;
         }
         TreasureChest currentChest = this.getTreasureChest();
-        currentChest.setName(message);
+        currentChest.setName(OmnipotentialChests.convertColors(message));
         new ChestCreatorGui(currentChest, this.previousGui).open(player);
         return true;
     }

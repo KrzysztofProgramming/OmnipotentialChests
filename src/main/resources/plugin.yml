@@ -28,3 +28,7 @@ commands:
     usage: /removechest [name]
     description: remove existing chest
     permission: omnipotentialchests.commands.removechest
+  rename:
+    usage: /rename <rename>
+    description: reset name or set new name for this item
+    permission: omnipotentialchests.commands.rename

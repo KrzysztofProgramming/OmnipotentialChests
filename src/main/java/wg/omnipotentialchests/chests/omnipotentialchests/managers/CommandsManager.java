@@ -27,5 +27,6 @@ public class CommandsManager {
         new EditChestCommand(OmnipotentialChests.getInstance().getCommand("editchest"));
         new CreateChestCommand(OmnipotentialChests.getInstance().getCommand("createchest"));
         new RemoveChestCommand(OmnipotentialChests.getInstance().getCommand("removechest"));
+        new RenameCommand(OmnipotentialChests.getInstance().getCommand("rename"));
     }
 }

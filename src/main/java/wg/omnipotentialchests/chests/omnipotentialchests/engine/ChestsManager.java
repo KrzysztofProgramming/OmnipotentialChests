@@ -53,14 +53,15 @@ public class ChestsManager implements Listener {
     }
 
     public void removeChest(String treasureChestName) {
-        TreasureChest chest = this.treasureChestMap.remove(BasicGui.clearColors(treasureChestName));;
-        if(chest == null) return;
-        this.removeFromDatabase(chest.getName());
+        String clearName = BasicGui.clearColors(treasureChestName);
+        this.treasureChestMap.remove(clearName);;
+        this.removeFromDatabase(clearName);
     }
 
     private void saveToDatabase(TreasureChest chest) {
-        database.deleteChest(chest.getName());
-        database.insertNewChest(chest.getName(), chest);
+        String clearName = BasicGui.clearColors(chest.getName());
+        database.deleteChest(clearName);
+        database.insertNewChest(clearName, chest);
     }
 
     private void removeFromDatabase(String chestName) {
