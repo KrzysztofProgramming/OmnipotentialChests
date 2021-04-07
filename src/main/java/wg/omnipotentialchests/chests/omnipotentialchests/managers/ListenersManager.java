@@ -2,7 +2,7 @@ package wg.omnipotentialchests.chests.omnipotentialchests.managers;
 
 import lombok.Getter;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.ChestsManager;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.base.SpinListener;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning.SpinListener;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.chat.ChatManager;
 
 public class ListenersManager {

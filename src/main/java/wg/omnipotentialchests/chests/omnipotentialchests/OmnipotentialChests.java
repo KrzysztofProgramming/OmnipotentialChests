@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import wg.omnipotentialchests.chests.omnipotentialchests.configs.ConfigsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.database.SQLManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.CommandsManager;
 import wg.omnipotentialchests.chests.omnipotentialchests.managers.ListenersManager;
@@ -26,6 +27,8 @@ public final class OmnipotentialChests extends JavaPlugin {
     private CommandsManager commandsManager;
     @Getter
     private ListenersManager listenersManager;
+    @Getter
+    private ConfigsManager configsManager;
 
     public static String convertColors(String st) {
         return ChatColor.translateAlternateColorCodes('&', st);
@@ -84,12 +87,14 @@ public final class OmnipotentialChests extends JavaPlugin {
 
     public void createClasses() {
         this.sqlManager = new SQLManager();
+        this.configsManager = new ConfigsManager();
         this.listenersManager = new ListenersManager();
         this.commandsManager = new CommandsManager();
     }
 
     public void initClasses() {
         this.sqlManager.init();
+        this.configsManager.init();
         this.listenersManager.init();
         this.commandsManager.init();
     }

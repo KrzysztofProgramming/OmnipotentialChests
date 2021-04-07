@@ -1,4 +1,4 @@
-package wg.omnipotentialchests.chests.omnipotentialchests.engine.base;
+package wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning;
 
 import ad.guis.ultimateguis.Colors;
 import ad.guis.ultimateguis.engine.basics.BasicGui;
@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
+import wg.omnipotentialchests.chests.omnipotentialchests.configs.ChestConfiguration;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerFinishedSpinningEvent;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.events.PlayerStartSpinningEvent;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;
@@ -20,8 +21,8 @@ import java.util.Random;
 
 public class ChestGui extends BasicGui {
 
-    public final static int ESTIMATED_ITEM_COUNT = 50; //may be bigger but not lower
-    public final static int MINIMUM_SPIN_POSITION = 20;
+    public static int ESTIMATED_ITEM_COUNT;
+    public static int MINIMUM_SPIN_POSITION;
     private final Random randomGenerator = new Random();
     @Getter
     private final TreasureChest treasureChest;
@@ -29,10 +30,14 @@ public class ChestGui extends BasicGui {
     private List<TreasureItem> shiftedItemsList = new ArrayList<>(ESTIMATED_ITEM_COUNT);
     private int currentShift = 0;
     private int currentTotalSpins = 0;
+    public ChestConfiguration chestConfiguration;
     private TreasureItem currentReward = null;
 
     public ChestGui(TreasureChest treasureChest, BasicGui previousGui) {
         super(4, treasureChest.getName(), previousGui);
+        this.chestConfiguration = OmnipotentialChests.getInstance().getConfigsManager().getChestConfiguration();
+        ESTIMATED_ITEM_COUNT = this.chestConfiguration.getMinimumItemCount();
+        MINIMUM_SPIN_POSITION = this.chestConfiguration.getMinimumSpinCount();
         this.treasureChest = treasureChest;
         this.init();
     }

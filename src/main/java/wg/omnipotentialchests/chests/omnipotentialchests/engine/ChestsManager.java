@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
 import wg.omnipotentialchests.chests.omnipotentialchests.database.Database;
-import wg.omnipotentialchests.chests.omnipotentialchests.engine.base.ChestGui;
+import wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning.ChestGui;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.ChestItem;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.items.KeyItem;
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureChest;

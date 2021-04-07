@@ -1,4 +1,4 @@
-package wg.omnipotentialchests.chests.omnipotentialchests.engine.base;
+package wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning;
 
 import ad.guis.ultimateguis.engine.basics.BasicGui;
 import org.bukkit.Bukkit;
