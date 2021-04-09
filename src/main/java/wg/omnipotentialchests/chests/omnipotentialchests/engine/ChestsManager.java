@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
@@ -16,10 +17,7 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureC
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning.ChestGui;
 import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.BasicGui;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ChestsManager implements Listener {
@@ -121,9 +119,9 @@ public class ChestsManager implements Listener {
         }
     }
 
-//    @EventHandler
-//    private void loreDebug(InventoryClickEvent e){
-//        System.out.println(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getLore());
-//    }
+    @EventHandler
+    private void loreDebug(InventoryClickEvent e){
+        System.out.println(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getLore());
+    }
 
 }

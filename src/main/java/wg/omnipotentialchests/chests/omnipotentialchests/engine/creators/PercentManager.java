@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PercentManager {
-    private final static String PERCENT_MODIFIER = "すó為'";
+    private final static String PERCENT_MODIFIER = "ó}ź'";
     private final static String INV_PERCENT_MODIFIER = LoreManager.toInvisibleLore(PERCENT_MODIFIER);
 
     public static void removePercentFromLore(ItemStack item) {
@@ -38,7 +38,6 @@ public class PercentManager {
 
             lore.set(index, INV_PERCENT_MODIFIER + ChatColor.AQUA
                     + Math.round(chance * 100) / 100.0 + '%');
-
             meta.setLore(lore);
             item.setItemMeta(meta);
             return;

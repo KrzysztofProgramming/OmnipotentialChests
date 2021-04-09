@@ -1,5 +1,6 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine;
 
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.BasicGui;
@@ -10,9 +11,9 @@ import java.util.List;
 
 public class LoreManager {
     public static final char COLOR_CHAR = '§';
-    public static final String SEPARATOR = "ł作ツ";
+    public static final String SEPARATOR = "ł,%";
     public static final String INV_SEPARATOR = toInvisibleLore(SEPARATOR);
-    public static final String PREFIX = "にź走ń";
+    public static final String PREFIX = "ź>ńż";
     public static final String INV_PREFIX = toInvisibleLore(PREFIX);
 
 
@@ -29,13 +30,17 @@ public class LoreManager {
                 return;
             }
             loreList.set(enchantIndex, addEnchant(loreList.get(enchantIndex), enchant));
+            Bukkit.broadcastMessage(String.valueOf(loreList));
             meta.setLore(loreList);
         } else {
             List<String> loreList = new ArrayList<>();
-            loreList.add(createNewEnchant(enchant));
+            System.out.println(createNewEnchant(enchant));
+            System.out.println(String.valueOf(loreList.add(createNewEnchant(enchant))));
+            System.out.println("Lore: " + String.valueOf(loreList));
             meta.setLore(loreList);
         }
         item.setItemMeta(meta);
+        System.out.println(item.getItemMeta().getLore());
     }
 
     public static void applyEnchants(ItemStack item, String... enchants) {
@@ -108,12 +113,7 @@ public class LoreManager {
     public static String toInvisibleLore(String lore) {
         StringBuilder builder = new StringBuilder();
         for (char a : lore.toCharArray()) {
-            if(a==' '){
-             builder.append(a);
-            }
-            else {
-                builder.append(COLOR_CHAR).append(a);
-            }
+            builder.append(COLOR_CHAR).append(a);
         }
         return builder.toString();
     }
