@@ -12,15 +12,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class KeyItem extends ItemStack {
-    public static final String KEY_LORE_PHRASE = "*ął";
+    public static final String KEY_LORE_START = OmnipotentialChests.convertColors("&fCan open ");
+    public static final String KEY_LORE_END = OmnipotentialChests.convertColors(" &r&fchest");
+    public static final String CLEARED_KEY_LORE_START = BasicGui.clearColors(KEY_LORE_START);
+    public static final String CLEARED_KEY_LORE_END = BasicGui.clearColors(KEY_LORE_END);
 
     public KeyItem(String chestName) {
         super(Material.TRIPWIRE_HOOK);
         ItemMeta meta = this.getItemMeta();
-        meta.setDisplayName(OmnipotentialChests.convertColors(chestName + " &rkey"));
+        meta.setDisplayName(OmnipotentialChests.convertColors(chestName + " &r&fkey"));
         this.setItemMeta(meta);
         Bukkit.broadcastMessage(chestName);
-        LoreManager.applyEnchant(this, KEY_LORE_PHRASE + BasicGui.clearColors(chestName));
+        LoreManager.applyEnchant(this, KEY_LORE_START + chestName + KEY_LORE_END);
     }
 
 
@@ -29,10 +32,10 @@ public class KeyItem extends ItemStack {
     }
 
     public static List<String> getOpenableChests(ItemStack item) {
-        Bukkit.broadcastMessage("Tutaj: " + String.valueOf(LoreManager.getEnchants(item)));
         return LoreManager.getEnchants(item).stream()
-                .filter(enchant -> enchant.startsWith(KEY_LORE_PHRASE))
-                .map(enchant -> enchant.substring(KEY_LORE_PHRASE.length()))
+                .filter(enchant -> enchant.endsWith(CLEARED_KEY_LORE_END) && enchant.startsWith(CLEARED_KEY_LORE_START))
+                .map(enchant -> enchant.substring(0, enchant.length() - CLEARED_KEY_LORE_END.length())
+                        .substring(CLEARED_KEY_LORE_START.length()))
                 .collect(Collectors.toList());
     }
 

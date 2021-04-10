@@ -52,7 +52,7 @@ public class ChestsManager implements Listener {
 
     public void removeChest(String treasureChestName) {
         String clearName = BasicGui.clearColors(treasureChestName);
-        this.treasureChestMap.remove(clearName);;
+        this.treasureChestMap.remove(clearName);
         this.removeFromDatabase(clearName);
     }
 
@@ -85,6 +85,7 @@ public class ChestsManager implements Listener {
         if (e.getAction() != Action.RIGHT_CLICK_AIR
                 && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
+        System.out.println(KeyItem.getOpenableChests(e.getItem()));
         if (!KeyItem.getOpenableChests(e.getItem()).isEmpty()) e.setCancelled(true);
 
         String openedChestName = ChestItem.getChestName(e.getItem());

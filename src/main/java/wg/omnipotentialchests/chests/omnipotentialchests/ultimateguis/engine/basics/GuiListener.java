@@ -17,14 +17,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GuiListener implements Listener {
-    private OmnipotentialChests plugin;
     private final Set<BasicGui> activeGuis = new HashSet<>();
     private static final int clickCooldown = 100; //in millis;
     private boolean locked = false;
 
     public void init() {
-        this.plugin = OmnipotentialChests.getInstance();
-        this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
+        OmnipotentialChests.getInstance().getServer().getPluginManager()
+                .registerEvents(this, OmnipotentialChests.getInstance());
     }
 
 

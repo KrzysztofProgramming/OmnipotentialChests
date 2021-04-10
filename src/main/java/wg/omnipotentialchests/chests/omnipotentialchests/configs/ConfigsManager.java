@@ -6,10 +6,10 @@ import wg.omnipotentialchests.chests.omnipotentialchests.configs.resourcesConfig
 public class ConfigsManager {
 
     @Getter
-    private ChestConfiguration chestConfiguration;
+    private final ChestConfiguration chestConfiguration;
 
     @Getter
-    private ConfigGenerator configGenerator;
+    private final ConfigGenerator configGenerator;
 
     public ConfigsManager() {
         this.configGenerator = new ConfigGenerator();
