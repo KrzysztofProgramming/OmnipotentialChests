@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import wg.omnipotentialchests.chests.omnipotentialchests.OmnipotentialChests;
@@ -17,7 +16,10 @@ import wg.omnipotentialchests.chests.omnipotentialchests.engine.models.TreasureC
 import wg.omnipotentialchests.chests.omnipotentialchests.engine.spinning.ChestGui;
 import wg.omnipotentialchests.chests.omnipotentialchests.ultimateguis.engine.basics.BasicGui;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ChestsManager implements Listener {
@@ -85,7 +87,6 @@ public class ChestsManager implements Listener {
         if (e.getAction() != Action.RIGHT_CLICK_AIR
                 && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
-        System.out.println(KeyItem.getOpenableChests(e.getItem()));
         if (!KeyItem.getOpenableChests(e.getItem()).isEmpty()) e.setCancelled(true);
 
         String openedChestName = ChestItem.getChestName(e.getItem());
@@ -118,11 +119,6 @@ public class ChestsManager implements Listener {
             e.getPlayer().sendMessage(OmnipotentialChests.convertColors(
                     "&eSorry, but this chests has been removed"));
         }
-    }
-
-    @EventHandler
-    private void loreDebug(InventoryClickEvent e){
-        System.out.println(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getLore());
     }
 
 }
