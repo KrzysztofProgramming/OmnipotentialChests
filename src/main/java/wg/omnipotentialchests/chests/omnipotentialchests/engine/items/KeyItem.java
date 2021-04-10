@@ -1,6 +1,5 @@
 package wg.omnipotentialchests.chests.omnipotentialchests.engine.items;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -22,7 +21,6 @@ public class KeyItem extends ItemStack {
         ItemMeta meta = this.getItemMeta();
         meta.setDisplayName(OmnipotentialChests.convertColors(chestName + " &r&fkey"));
         this.setItemMeta(meta);
-        Bukkit.broadcastMessage(chestName);
         LoreManager.applyEnchant(this, KEY_LORE_START + chestName + KEY_LORE_END);
     }
 
