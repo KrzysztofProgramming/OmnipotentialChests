@@ -23,4 +23,5 @@
 Configuration:
   # The number of elements that will move
   minimumItemCount: 50
+  # The minimum value of how many times items will move.
   minimumSpinCount: 20
