@@ -1,5 +1,5 @@
 # OmnipotentialChests
-Spigot random reward chests plugins
+Spigot random rewards chests plugin
 
 ## Showcase:
 https://www.spigotmc.org/resources/omnipotencialchests.91203/
